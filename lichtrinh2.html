@@ -613,7 +613,7 @@
                 isValid = false;
             }
             if (!/^\d{10}$/.test(phone)) {
-                phoneError.textContent = 'Số điện thoại phải đủ 10 số.';
+                phoneError.textContent = 'Số điện thoại không hợp lệ.';
                 phoneError.style.display = 'block';
                 isValid = false;
             }
@@ -623,7 +623,7 @@
                 today.setHours(0, 0, 0, 0);
                 selectedDate.setHours(0,0,0,0);
                 if (selectedDate <= today) {
-                    dateError.textContent = 'Ngày khởi hành phải lớn hơn ngày hiện tại.';
+                    dateError.textContent = 'Ngày khởi hành không hợp lệ.';
                     dateError.style.display = 'block';
                     isValid = false;
                 }
