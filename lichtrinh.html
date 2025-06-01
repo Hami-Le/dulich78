@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gợi Ý Lịch Trình Du Lịch Phú Yên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        background-image: url("img/tt3.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        margin: 0;
+      }
+        .page-header-itinerary {
+            height: 50vh; /* Có thể điều chỉnh */
+            color: white;
+            display: flex;
+            flex-direction: column; /* Cho phép căn chỉnh chữ dễ hơn */
+            align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+        .page-header-itinerary h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            animation: fadeInUp 1s ease; /* Thêm animation từ style.css */
+        }
+        .page-header-itinerary .lead-text { /* Class mới cho dòng text dưới H1 */
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            max-width: 700px; /* Giới hạn chiều rộng */
+            animation: fadeInUp 1.4s ease; /* Thêm animation từ style.css */
+        }
+
+        .itinerary-option-card {
+            position: relative;
+            border-radius: 15px; /* Bo góc nhiều hơn */
+            overflow: hidden; /* Quan trọng để ảnh nền không tràn */
+            height: 450px; /* Đặt chiều cao cố định cho card */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Đẩy nội dung xuống dưới */
+            padding: 2rem;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .itinerary-option-card::before { /* Lớp phủ mờ */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 70%); /* Gradient từ dưới lên */
+            z-index: 1;
+            border-radius: 15px;
+        }
+
+        .itinerary-option-card .card-content {
+            position: relative; /* Để nằm trên lớp phủ */
+            z-index: 2;
+        }
+
+        .itinerary-option-card:hover {
+            transform: translateY(-10px) scale(1.03); /* Hiệu ứng nổi bật hơn */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+
+        .itinerary-option-card .card-title {
+            font-family: "Noto Sans", sans-serif; /* Sử dụng font Noto Sans */
+            font-size: 1.8rem; /* Tăng kích thước tiêu đề */
+            font-weight: 700; /* Đậm hơn */
+            margin-bottom: 0.75rem;
+            color: var(--white); /* Đảm bảo màu trắng cho tiêu đề */
+        }
+
+        .itinerary-option-card .card-text {
+            font-size: 0.95rem; /* Điều chỉnh kích thước mô tả */
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+             color: #f0f0f0; /* Màu chữ mô tả sáng hơn một chút */
+        }
+
+        .itinerary-option-card .btn { /* Style lại nút */
+            border-radius: 50px;
+            padding: 10px 30px; /* Tăng padding */
+            font-weight: 600; /* Đậm hơn */
+            font-size: 1rem;
+            background-color: var(--secondary-color); /* Màu vàng làm điểm nhấn */
+            color: var(--text-color);
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .itinerary-option-card .btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Ảnh nền cho từng card */
+        #card-3n2d {
+            background-image: url('img/lichtrinh1.JPG'); /* Thay bằng ảnh nền phù hợp cho lịch trình 3N2Đ */
+        }
+        #card-tour-ngan-ngay {
+             background-image: url('img/lichtrinh2.JPG'); /* Thay bằng ảnh nền phù hợp cho tour ngắn ngày */
+        }
+    </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logo.jpg" alt="Logo Phú Yên" height="40">
+      </a>
+      <strong>Du Lịch Phú Yên</strong>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="diadiem.html">Địa điểm</a></li>
+          <li class="nav-item"><a class="nav-link" href="amthuc.html">Ẩm thực</a></li>
+          <li class="nav-item"><a class="nav-link active" href="lichtrinh.html">Lịch trình</a></li>
+          <li class="nav-item"><a class="nav-link" href="congdong.html">Cộng đồng</a></li>
+          <li class="nav-item"><a class="nav-link" href="lienhe.html">Liên hệ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header-itinerary text-center">
+    <h1>Lên Kế Hoạch Cho Chuyến Đi Phú Yên</h1>
+    <p class="lead-text">Dù bạn có bao nhiêu thời gian, chúng tôi đều có những gợi ý lịch trình phù hợp để bạn khám phá trọn vẹn vẻ đẹp Phú Yên.</p>
+  </header>
+
+  <main class="container py-5">
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <a href="lichtrinh1.html" class="text-decoration-none">
+                <div class="itinerary-option-card" id="card-3n2d">
+                    <div class="card-content">
+                        <h5 class="card-title">Phú Yên 3 Ngày 2 Đêm: Khám Phá Toàn Diện</h5>
+                        <p class="card-text">Hành trình khám phá những điểm đến biểu tượng từ Bắc vào Nam Phú Yên, từ Gành Đá Đĩa, Mũi Điện đến các bãi biển tuyệt đẹp và thưởng thức ẩm thực địa phương.</p>
+                        <div class="btn"><i class="fas fa-route me-2"></i>Xem Chi Tiết</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+             <a href="lichtrinh2.html" class="text-decoration-none">
+                <div class="itinerary-option-card" id="card-tour-ngan-ngay">
+                     <div class="card-content">
+                        <h5 class="card-title">Các Tour Du Lịch: Chuyến Đi Ngắn Ngày Đầy Cảm Hứng</h5>
+                        <p class="card-text">Lựa chọn hoàn hảo cho những chuyến đi cuối tuần, tập trung vào các điểm nổi bật, trải nghiệm văn hóa và thưởng thức hải sản tươi ngon.</p>
+                        <div class="btn"><i class="fas fa-suitcase-rolling me-2"></i>Khám Phá Các Tour</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-4 mt-auto">
+     <div class="container">
+        <p class="mb-0">&copy; <span id="currentYear"></span> Du Lịch Phú Yên. Bảo lưu mọi quyền.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+  </script>
+  </body>
+</html>

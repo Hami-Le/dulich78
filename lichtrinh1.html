@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Trình Phú Yên Tự Túc 3 Ngày 2 Đêm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Kế thừa và tùy chỉnh từ style.css */
+        .timeline-header {
+            background-image: url('img/lichtrinh1.JPG'); /* Thay bằng ảnh banner đẹp cho lịch trình */
+            background-size: cover;
+            background-position: center;
+            height: 60vh; /* Tăng chiều cao header */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+            text-align: center;
+            padding: 20px;
+        }
+        .timeline-header h1 {
+            font-family: "Noto Sans", sans-serif;
+            font-size: 3.2rem; /* Kích thước tiêu đề lớn hơn */
+            font-weight: 700;
+            animation: fadeInUp 1s ease;
+        }
+        .timeline-header p {
+            font-size: 1.3rem;
+            margin-top: 10px;
+            max-width: 600px;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .itinerary-nav { /* Navbar riêng cho các mục trong trang lịch trình */
+            background-color: var(--bg-light); /* Màu nền nhạt */
+            padding: 10px 0;
+            border-bottom: 2px solid var(--primary-color);
+            position: sticky; /* Dính lại khi cuộn */
+            top: 70px; /* Dưới navbar chính (nếu navbar chính fixed-top và cao ~70px) */
+            z-index: 999; /* Đảm bảo nằm trên các phần tử khác */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .itinerary-nav .nav-link {
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px; /* Bo tròn nhẹ */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .itinerary-nav .nav-link:hover,
+        .itinerary-nav .nav-link.active { /* Giả sử có class active khi cuộn đến section */
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .itinerary-section {
+            padding: 40px 0;
+            border-bottom: 1px solid #eee; /* Ngăn cách nhẹ giữa các section */
+        }
+        .itinerary-section:last-child {
+            border-bottom: none;
+        }
+        .itinerary-section h2.section-title-custom { /* Tiêu đề cho mỗi section (Giới thiệu, Lịch trình, Mẹo) */
+            font-family: "Noto Sans", sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+         .itinerary-section h2.section-title-custom::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        .day-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color); /* Điểm nhấn màu ở cạnh trái */
+        }
+        .day-card h3.day-title { /* Tiêu đề cho mỗi NGÀY */
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: var(--secondary-color); /* Màu vàng cho tiêu đề ngày */
+            margin-bottom: 20px;
+            border-bottom: 2px dashed #eee;
+            padding-bottom: 10px;
+        }
+        .activity-item {
+            margin-bottom: 25px;
+            padding-left: 30px; /* Tạo không gian cho icon */
+            position: relative;
+        }
+        .activity-item::before { /* Icon cho mỗi hoạt động */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            content: "\f0f3"; /* Icon chuông, hoặc bạn có thể thay đổi theo loại hoạt động */
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        .activity-item strong { /* Thời gian hoặc tên hoạt động */
+            display: block;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+         .activity-item .activity-details { /* Chi tiết hoạt động */
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .activity-item .activity-details ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 5px;
+        }
+        .activity-item .activity-details ul li {
+            margin-bottom: 3px;
+        }
+        .activity-item .activity-details ul li i { /* Icon nhỏ cho chi tiết (địa chỉ, giá) */
+            margin-right: 8px;
+            color: var(--accent-color); /* Màu đỏ san hô */
+            width: 15px; /* Đảm bảo icon thẳng hàng */
+        }
+        .activity-image {
+            width: 100%;
+            max-width: 400px; /* Giới hạn chiều rộng ảnh */
+            border-radius: 8px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .tips-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .tips-section ul li {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary-color);
+        }
+        .tips-section ul li strong {
+            color: var(--primary-color);
+        }
+
+        /* Navbar kế thừa từ style.css */
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40">
+        </a>
+        <strong>Du Lịch Phú Yên</strong>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarNav" aria-controls="mainNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="mainNavbarNav">
+          <ul class="navbar-nav gap-3">
+            <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+            <li class="nav-item"><a class="nav-link" href="diadiem.html">Địa điểm</a></li>
+            <li class="nav-item"><a class="nav-link" href="amthuc.html">Ẩm thực</a></li>
+            <li class="nav-item"><a class="nav-link active" href="lichtrinh.html">Lịch trình</a></li>
+            <li class="nav-item"><a class="nav-link" href="congdong.html">Cộng đồng</a></li>
+            <li class="nav-item"><a class="nav-link" href="lienhe.html">Liên hệ</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="timeline-header">
+        <h1>Lịch Trình Du Lịch Phú Yên Tự Túc 3 Ngày 2 Đêm</h1>
+        <p>Khám phá xứ Nẫu với lịch trình tối ưu, kết hợp giữa vẻ đẹp thiên nhiên, văn hóa và ẩm thực đặc sắc.</p>
+    </header>
+
+    <nav class="itinerary-nav" id="itineraryScrollNav">
+        <div class="container">
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link" href="#intro">Giới Thiệu</a></li>
+                <li class="nav-item"><a class="nav-link" href="#day1">Ngày 1</a></li>
+                <li class="nav-item"><a class="nav-link" href="#day2">Ngày 2</a></li>
+                <li class="nav-item"><a class="nav-link" href="#day3">Ngày 3</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tips">Mẹo Du Lịch</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="itinerary-section" id="intro">
+            <h2 class="section-title-custom">Giới Thiệu Chung</h2>
+            <p class="lead text-center">Phú Yên - vùng đất của "hoa vàng cỏ xanh" với những bãi biển trong xanh, ghềnh đá độc đáo và ẩm thực đậm đà. Lịch trình 3 ngày 2 đêm này, dựa trên kinh nghiệm thực tế, sẽ giúp bạn ăn ngon, chơi vui và khám phá trọn vẹn Phú Yên một cách tự túc và đầy hứng khởi.</p>
+        </section>
+
+        <section class="itinerary-section" id="itineraryDetail">
+            <h2 class="section-title-custom">Lịch Trình Chi Tiết</h2>
+
+            <div class="day-card" id="day1">
+                <h3 class="day-title"><i class="fas fa-sun me-2"></i>NGÀY 1: Khám Phá Phía Bắc Phú Yên</h3>
+                <p class="mb-4">Bắt đầu hành trình khám phá Phú Yên sớm vào buổi sáng để tận hưởng không khí trong lành và ẩm thực địa phương, tập trung vào các điểm nổi tiếng ở phía Bắc tỉnh.</p>
+
+                <div class="activity-item">
+                    <i class="fas fa-utensils activity-icon"></i>
+                    <strong>06:00: Ăn sáng - Bánh canh chả cá</strong>
+                    <div class="activity-details">
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Ngã ba Hàm Nghi - Lê Trung Kiên, P.2, Tuy Hòa.</li>
+                            <li><i class="fas fa-clock"></i>Giờ: 4:30 - 7:30</li>
+                            <li><i class="fas fa-dollar-sign"></i>Giá: 10k - 15k/tô</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <i class="fas fa-coffee activity-icon"></i>
+                    <strong>06:30: Cà phê sáng</strong>
+                    <div class="activity-details">
+                        <p>Thưởng thức cà phê sữa đá nhuyễn tại một quán cóc địa phương để cảm nhận nhịp sống buổi sáng.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: 156 Lê Trung Kiên, P.2, Tuy Hòa (Cô Hồng).</li>
+                            <li><i class="fas fa-clock"></i>Giờ: 5:00 - 17:00</li>
+                            <li><i class="fas fa-dollar-sign"></i>Giá: 10k - 15k/ly</li>
+                        </ul>
+                        <img src="img/lt1-1.png" alt="Cà phê cóc" class="activity-image img-fluid"> </div>
+                </div>
+                
+                <div class="activity-item">
+                     <i class="fas fa-archway activity-icon"></i>
+                    <strong>07:00 - 12:00: Tham quan cụm phía Bắc</strong>
+                    <div class="activity-details">
+                        <p>Di chuyển lên phía Bắc để khám phá các địa danh nổi tiếng (thứ tự có thể linh hoạt):</p>
+                        <ul>
+                            <li><strong>Đập Tam Giang:</strong> Cảnh quan yên bình. (Không phí)</li>
+                             <img src="img/lt1-2.png" alt="Đập Tam Giang" class="activity-image img-fluid mt-2 mb-2"> <li><strong>Nhà thờ Mằng Lăng:</strong> Kiến trúc cổ, nơi lưu giữ sách Quốc ngữ đầu tiên. (Không phí)</li>
+                             <img src="img/nha_tho_mang_lang_slide1.jpg" alt="Nhà thờ Mằng Lăng" class="activity-image img-fluid mt-2 mb-2"> <li><strong>Cầu gỗ Ông Cọp:</strong> Cây cầu gỗ dài nhất Việt Nam. (Phí qua cầu: 1k-3k)</li>
+                            <img src="img/cau_go_ong_cop_slide2.jpg" alt="Cầu gỗ Ông Cọp" class="activity-image img-fluid mt-2 mb-2"> <li><strong>Gành Đá Đĩa:</strong> Kỳ quan thiên nhiên độc đáo. (Vé: 20k/người)</li>
+                             <img src="img/lt1-5.png" alt="Gành Đá Đĩa" class="activity-image img-fluid mt-2 mb-2"> </ul>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <i class="fas fa-drumstick-bite activity-icon"></i>
+                    <strong>12:00: Ăn trưa</strong>
+                    <div class="activity-details">
+                        <p>Thưởng thức đặc sản dê tại quán Phương Đông gần Bãi Xép, hoặc các quán hải sản tại Gành Đá Đĩa.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ gợi ý: Dê Phương Đông, An Mỹ, Tuy An.</li>
+                            <li><i class="fas fa-dollar-sign"></i>Giá: Từ 120k.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                     <i class="fas fa-umbrella-beach activity-icon"></i>
+                    <strong>14:00: Bãi Xép - Gành Ông</strong>
+                    <div class="activity-details">
+                        <p>Thư giãn, tắm biển và check-in tại phim trường "Tôi thấy hoa vàng trên cỏ xanh".</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: An Mỹ, Tuy An.</li>
+                            <li><i class="fas fa-dollar-sign"></i>Vé: 20k/người. Tắm nước ngọt có phí.</li>
+                        </ul>
+                        <img src="img/baixep4.jpg" alt="Bãi Xép" class="activity-image img-fluid"> </div>
+                </div>
+
+                <div class="activity-item">
+                    <i class="fas fa-place-of-worship activity-icon"></i>
+                    <strong>15:30: Chùa Thanh Lương</strong>
+                     <div class="activity-details">
+                        <p>Viếng thăm ngôi chùa nổi tiếng trên đường về lại thành phố.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Mỹ Quang Nam, An Chấn, Tuy An. (Không phí)</li>
+                        </ul>
+                         <img src="img/lt1-7.png" alt="Chùa Thanh Lương" class="activity-image img-fluid"> </div>
+                </div>
+
+                <div class="activity-item">
+                     <i class="fas fa-hotel activity-icon"></i>
+                    <strong>16:30: Check-in khách sạn & nghỉ ngơi</strong>
+                </div>
+
+                <div class="activity-item">
+                    <i class="fas fa-landmark activity-icon"></i>
+                    <strong>17:30: Tháp Nghinh Phong</strong>
+                    <div class="activity-details">
+                        <p>Ngắm hoàng hôn tại biểu tượng mới của Tuy Hòa.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Ngã tư Nguyễn Hữu Thọ - Độc Lập. (Không phí)</li>
+                        </ul>
+                        <img src="img/nghinhphong1.jpg" alt="Tháp Nghinh Phong" class="activity-image img-fluid"> </div>
+                </div>
+
+                <div class="activity-item">
+                    <i class="fas fa-utensils activity-icon"></i>
+                    <strong>19:00: Ăn tối & khám phá Tuy Hòa về đêm</strong>
+                     <div class="activity-details">
+                        <p>Thưởng thức các món đặc sản:</p>
+                        <ul>
+                            <li>Mắt cá ngừ đại dương (Quán Bà Tám).</li>
+                            <li>Bún thịt nướng bánh cuốn Hà (Ngã tư Ngô Quyền - Trần Hưng Đạo).</li>
+                            <li>Kem trộn Duy Tân (Kè Bạch Đằng).</li>
+                        </ul>
+                         <img src="img/matcangudaiduong.jpg" alt="Mắt cá ngừ" class="activity-image img-fluid mt-2 mb-2"> </div>
+                </div>
+            </div> <div class="day-card" id="day2">
+                <h3 class="day-title"><i class="fas fa-hiking me-2"></i>NGÀY 2: Thiên Nhiên Hoang Sơ & Ẩm Thực</h3>
+                 <p class="mb-4">Dành ngày thứ hai để khám phá vẻ đẹp thiên nhiên hoang sơ hơn và tiếp tục hành trình ẩm thực.</p>
+                <div class="activity-item">
+                    <i class="fas fa-drumstick-bite activity-icon"></i>
+                    <strong>07:00: Ăn sáng - Cơm gà Phú Yên</strong>
+                    <div class="activity-details">
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Cơm gà Phương, hẻm Trần Quý Cáp, Tuy Hòa.</li>
+                            <li><i class="fas fa-dollar-sign"></i>Giá: 20k - 50k.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="activity-item">
+                     <i class="fas fa-tint activity-icon"></i>
+                    <strong>09:00: Picnic Vực Hòm</strong>
+                    <div class="activity-details">
+                        <p>Chuẩn bị đồ ăn, nước uống và trang phục phù hợp để trekking và tắm thác tại Vực Hòm. Đường đi có thể hơi khó khăn.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Vĩnh Xuân, An Lĩnh, Tuy An. (Không phí)</li>
+                        </ul>
+                        <img src="img/vuchom1.jpg" alt="Vực Hòm" class="activity-image img-fluid"> </div>
+                </div>
+                 <div class="activity-item">
+                    <i class="fas fa-bed activity-icon"></i>
+                    <strong>15:00: Về khách sạn nghỉ ngơi</strong>
+                </div>
+                 <div class="activity-item">
+                    <i class="fas fa-ice-cream activity-icon"></i>
+                    <strong>16:00: Ăn vặt xế chiều</strong>
+                    <div class="activity-details">
+                        <p>Thưởng thức các món ăn vặt nổi tiếng:</p>
+                        <ul>
+                            <li>Bánh bèo chén, bánh canh bột lọc (dưới chân núi Nhạn).</li>
+                            <li>Ốc xào Hoa Héo (170 Lê Trung Kiên).</li>
+                            <li>Xỏ lòi (bờ biển Tuy Hòa).</li>
+                            <li>Bắp nướng mắm nêm hẹ rí (Vòng xoay Trần Phú - Hùng Vương).</li>
+                        </ul>
+                         <img src="img/lt1-10.png" alt="Bánh bèo chén" class="activity-image img-fluid mt-2 mb-2"> </div>
+                </div>
+                <div class="activity-item">
+                     <i class="fas fa-concierge-bell activity-icon"></i>
+                    <strong>19:00: Ăn tối - Lẩu gà lá é</strong>
+                    <div class="activity-details">
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Lẩu gà lá é Phú Yên Thảo Nguyên, Bờ kè Bạch Đằng.</li>
+                            <li><i class="fas fa-dollar-sign"></i>Giá: 200k - 300k.</li>
+                        </ul>
+                        <img src="img/lt1-15.png" alt="Lẩu gà lá é" class="activity-image img-fluid"> </div>
+                </div>
+            </div> <div class="day-card" id="day3">
+                <h3 class="day-title"><i class="fas fa-mountain me-2"></i>NGÀY 3: Đón Bình Minh & Khám Phá Phía Nam</h3>
+                <p class="mb-4">Ngày cuối cùng dành để đón bình minh ở cực Đông và khám phá các điểm phía Nam trước khi kết thúc hành trình.</p>
+                <div class="activity-item">
+                    <i class="fas fa-flag activity-icon"></i>
+                    <strong>03:30 - 07:00: Mũi Điện - Hải Đăng Đại Lãnh</strong>
+                    <div class="activity-details">
+                        <p>Xuất phát sớm để đón bình minh đầu tiên trên đất liền Việt Nam.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ: Hòa Tâm, Đông Hòa.</li>
+                            <li><i class="fas fa-dollar-sign"></i>Vé: 20k/người.</li>
+                        </ul>
+                        <img src="img/muidien1.jpg" alt="Bình minh Mũi Điện" class="activity-image img-fluid"> </div>
+                </div>
+                <div class="activity-item">
+                     <i class="fas fa-fish activity-icon"></i>
+                    <strong>08:00: Ăn sáng hải sản tại Vũng Rô</strong>
+                    <div class="activity-details">
+                        <p>Thưởng thức hải sản tươi sống trên các bè nổi tại Vịnh Vũng Rô.</p>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i>Địa chỉ gợi ý: Nhà bè Phương Anh.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <i class="fas fa-sign-out-alt activity-icon"></i>
+                    <strong>11:00: Về thành phố, check-out khách sạn</strong>
+                </div>
+                <div class="activity-item">
+                    <i class="fas fa-shopping-bag activity-icon"></i>
+                    <strong>12:30: Mua sắm đặc sản</strong>
+                    <div class="activity-details">
+                        <p>Đi chợ Tuy Hòa hoặc các cửa hàng đặc sản để mua quà cho người thân.</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                     <i class="fas fa-chess-rook activity-icon"></i>
+                    <strong>13:30: Tháp Nhạn</strong>
+                    <div class="activity-details">
+                        <p>Tham quan di tích Chăm Pa cổ kính và ngắm toàn cảnh thành phố Tuy Hòa.</p>
+                        <ul>
+                            <li><i class="fas fa-dollar-sign"></i>Vé: 15k/người.</li>
+                        </ul>
+                         <img src="img/lt1-19.png" alt="Tháp Nhạn" class="activity-image img-fluid"> </div>
+                </div>
+                <div class="activity-item">
+                    <i class="fas fa-plane-departure activity-icon"></i>
+                    <strong>14:30: Kết thúc hành trình</strong>
+                    <div class="activity-details">
+                        <p>Di chuyển ra sân bay hoặc bến xe, kết thúc chuyến đi Phú Yên 3 ngày 2 đêm đáng nhớ.</p>
+                    </div>
+                </div>
+            </div> </section>
+
+        <section class="itinerary-section tips-section" id="tips">
+            <h2 class="section-title-custom">Mẹo Du Lịch Hữu Ích</h2>
+            <ul>
+                <li><strong>Thời điểm lý tưởng:</strong> Du lịch Phú Yên từ tháng 1 đến tháng 8, đặc biệt tháng 2-3 (thời tiết mát mẻ, ít mưa). Tránh tháng 9-12 vì có thể có bão.</li>
+                <li><strong>Di chuyển:</strong> Máy bay (đến sân bay Tuy Hòa), xe khách, hoặc tàu hỏa (ga Tuy Hòa). Thuê xe máy tại Tuy Hòa để tự do khám phá (khoảng 120k-150k/ngày).</li>
+                <li><strong>Lưu trú:</strong> Đa dạng lựa chọn từ khách sạn, resort đến homestay. Nên đặt phòng trước, đặc biệt vào mùa cao điểm.</li>
+                <li><strong>Ẩm thực không thể bỏ lỡ:</strong> Mắt cá ngừ đại dương, sò huyết Đầm Ô Loan, bánh canh hẹ, chả dông, gà nướng Sông Cầu, bò một nắng - kiến vàng...</li>
+                <li><strong>Mang theo:</strong> Kem chống nắng, mũ rộng vành, kính râm, trang phục thoải mái, đồ bơi, giày dép dễ đi (đặc biệt khi leo Gành Đá Đĩa, Mũi Điện).</li>
+                <li><strong>Ngân sách dự kiến:</strong> Khoảng 2.500.000 - 4.000.000 VNĐ/người cho chuyến đi 3 ngày 2 đêm (chưa bao gồm vé máy bay/tàu xe di chuyển đến Phú Yên), tùy thuộc vào lựa chọn lưu trú và ăn uống.</li>
+                 <li><strong>An toàn:</strong> Cẩn thận khi tắm biển, leo trèo ở các ghềnh đá. Tuân thủ các quy định tại điểm tham quan.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+        <div class="container">
+            <p class="mb-0">© <span id="currentYear"></span> Du Lịch Phú Yên. Bảo lưu mọi quyền.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+        // Smooth scroll cho itinerary-nav và active class (tùy chọn nâng cao)
+        const scrollNav = document.getElementById('itineraryScrollNav');
+        if (scrollNav) {
+            const navLinks = scrollNav.querySelectorAll('.nav-link');
+            const sections = [];
+            navLinks.forEach(link => {
+                const sectionId = link.getAttribute('href');
+                if (sectionId.startsWith('#')) {
+                    const section = document.querySelector(sectionId);
+                    if (section) {
+                        sections.push(section);
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            section.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    }
+                }
+            });
+
+            // Active link on scroll (đơn giản)
+            window.addEventListener('scroll', () => {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - scrollNav.offsetHeight - 20; // 20 là buffer
+                    if (pageYOffset >= sectionTop) {
+                        currentSectionId = '#' + section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

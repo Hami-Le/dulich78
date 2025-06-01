@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cộng Đồng Du Lịch Phú Yên</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        background-image: url("img/tt9.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        margin: 0;
+      }
+      .page-header-community {
+        height: 50vh;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        margin-bottom: 2rem;
+      }
+      .page-header-community h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+      }
+      .post-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        background-color: var(--white);
+      }
+      .post-card:hover {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+      }
+      .post-card img.card-img-top, #postDetailModal img {
+        height: 220px;
+        object-fit: cover;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+       #postDetailModal .carousel-item img {
+        height: 400px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+      .post-card .card-body {
+        padding: 1.25rem;
+      }
+      .post-card .card-title {
+        font-family: "Noto Sans", sans-serif;
+        font-weight: 600;
+        color: var(--text-color);
+      }
+      .post-card .card-text.post-meta {
+        font-size: 0.85rem;
+        color: #757575;
+        margin-bottom: 0.75rem;
+      }
+       .post-card .card-text.post-content-preview {
+        font-size: 0.95rem;
+        color: #424242;
+        line-height: 1.6;
+      }
+      .create-post-form {
+        background-color: var(--bg-light);
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+      }
+      .create-post-form h3 {
+        color: var(--text-color);
+        font-family: "Noto Sans", sans-serif;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+      .form-label {
+          font-weight: 500;
+      }
+      .btn-read-more, .btn-delete-post {
+          border-radius: 50px;
+          padding: 8px 20px;
+          font-weight: 500;
+          transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+          position: relative;
+          overflow: hidden;
+          border: none;
+          color: var(--white);
+          font-size: 0.85rem;
+      }
+      .btn-read-more {
+          background: var(--primary-color);
+      }
+      .btn-delete-post {
+          background: var(--accent-color);
+          margin-left: 0.5rem;
+      }
+
+      .btn-read-more::before, .btn-delete-post::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+          );
+          transition: left 0.3s ease;
+      }
+      .btn-read-more:hover::before, .btn-delete-post:hover::before {
+          left: 100%;
+      }
+      .btn-read-more:hover {
+          background: var(--secondary-color);
+          color: var(--text-color);
+          box-shadow: 0 4px 15px rgba(0, 168, 232, 0.4);
+      }
+      .btn-delete-post:hover {
+          background: #d63031;
+          color: var(--white);
+          box-shadow: 0 4px 15px rgba(255, 107, 107, 0.5);
+      }
+      .card-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      #postDetailModal .modal-body p {
+          white-space: pre-wrap;
+          line-height: 1.7;
+      }
+      .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .image-preview-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+      }
+      .image-preview-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .like-button { /* Style cho nút like */
+        cursor: pointer;
+        transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+      }
+      .like-button.liked { /* Style khi đã like */
+        color: var(--accent-color); /* Màu đỏ khi đã thích */
+        transform: scale(1.1);
+      }
+      .like-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40" />
+        </a>
+        <strong>Du Lịch Phú Yên</strong>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav gap-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diadiem.html">Địa điểm</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="amthuc.html">Ẩm thực</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lichtrinh.html">Lịch trình</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="congdong.html">Cộng đồng</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lienhe.html">Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header-community text-center">
+      <h1>Chia Sẻ Hành Trình Phú Yên Của Bạn</h1>
+    </header>
+
+    <main class="container py-4">
+      <section id="createPostSection" class="create-post-form">
+        <h3><i class="fas fa-pencil-alt me-2"></i>Viết Cảm Nhận Mới</h3>
+        <form id="createPostForm">
+          <div class="mb-3">
+            <label for="postTitle" class="form-label">Tiêu đề bài viết <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="postTitle" required />
+          </div>
+          <div class="mb-3">
+            <label for="postAuthor" class="form-label">Tên của bạn <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="postAuthor" value="Khách" required />
+          </div>
+          <div class="mb-3">
+            <label for="postContent" class="form-label">Nội dung cảm nhận <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="postContent" rows="6" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="postImages" class="form-label">Chọn ảnh minh họa (tùy chọn, có thể chọn nhiều ảnh)</label>
+            <input class="form-control" type="file" id="postImages" accept="image/*" multiple />
+            <div id="imagePreviewContainer" class="image-preview-container">
+            </div>
+            <div class="form-text">Chọn ảnh có dung lượng nhỏ để tải nhanh hơn.</div>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-paper-plane me-2"></i>Đăng Bài
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <hr class="my-5">
+
+      <section id="postsSection">
+        <h2 class="text-center mb-4" style="font-family: 'Noto Sans', sans-serif; color: var(--text-color);">
+            <i class="fas fa-comments me-2"></i>Bài Viết Từ Cộng Đồng
+        </h2>
+        <div id="postsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        </div>
+        <p id="noPostsMessage" class="text-center text-muted mt-4" style="display:none;">
+            Chưa có bài viết nào. Hãy là người đầu tiên chia sẻ cảm nhận của bạn!
+        </p>
+      </section>
+    </main>
+
+    <div class="modal fade" id="postDetailModal" tabindex="-1" aria-labelledby="postDetailModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="postDetailModalLabel">Chi tiết bài viết</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h3 id="modalPostTitle" class="mb-3"></h3>
+            <p class="text-muted mb-2">
+                <i class="fas fa-user me-1"></i><span id="modalPostAuthor"></span> -
+                <i class="fas fa-calendar-alt ms-2 me-1"></i><span id="modalPostDate"></span>
+            </p>
+            <hr>
+            <div id="modalPostImagesCarousel" class="carousel slide mb-3" data-bs-ride="carousel" style="display:none;">
+              <div class="carousel-inner" id="modalCarouselInner">
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#modalPostImagesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#modalPostImagesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+             <img id="modalPostSingleImage" src="" class="img-fluid rounded mb-3" alt="Ảnh bài viết" style="display:none; max-height: 400px; object-fit: contain; margin: 0 auto; display: block;">
+            <p id="modalPostContent"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+      <div class="container">
+        <p class="mb-0">&copy; <span id="currentYear"></span> Du Lịch Phú Yên. Bảo lưu mọi quyền.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+      const createPostForm = document.getElementById("createPostForm");
+      const postsContainer = document.getElementById("postsContainer");
+      const noPostsMessage = document.getElementById("noPostsMessage");
+      const postImagesInput = document.getElementById("postImages");
+      const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+
+      const postDetailModalElement = document.getElementById('postDetailModal');
+      const postDetailModal = new bootstrap.Modal(postDetailModalElement);
+      const modalPostTitle = document.getElementById("modalPostTitle");
+      const modalPostAuthor = document.getElementById("modalPostAuthor");
+      const modalPostDate = document.getElementById("modalPostDate");
+      const modalPostContent = document.getElementById("modalPostContent");
+      const modalPostImagesCarousel = document.getElementById("modalPostImagesCarousel");
+      const modalCarouselInner = document.getElementById("modalCarouselInner");
+      const modalPostSingleImage = document.getElementById("modalPostSingleImage");
+
+      const samplePosts = [
+        {
+          id: Date.now() + 1,
+          title: "Kỳ Vĩ Gành Đá Đĩa Dưới Nắng Vàng",
+          author: "Nguyễn An",
+          date: "15/05/2025",
+          content: "Chuyến đi Phú Yên của mình không thể trọn vẹn nếu thiếu Gành Đá Đĩa. Những khối đá bazan xếp chồng lên nhau như tổ ong khổng lồ thật sự là một kiệt tác của thiên nhiên.\nBiển xanh, nắng vàng, gió mát rượi, một trải nghiệm khó quên...",
+          images: ["img/ganhdadia1.jpg"],
+          likes: 25,
+          isLiked: false // Thêm trạng thái like ban đầu
+        },
+        {
+          id: Date.now() + 2,
+          title: "Bình Minh Tuyệt Đẹp ở Mũi Điện",
+          author: "Trần Bình",
+          date: "12/05/2025",
+          content: "Dậy sớm để đón bình minh đầu tiên trên đất liền tại Mũi Điện là một điều vô cùng xứng đáng.\nKhung cảnh hùng vĩ, mặt trời từ từ nhô lên khỏi mặt biển, nhuộm đỏ cả một vùng trời. Ngọn hải đăng cổ kính đứng sừng sững như một chứng nhân lịch sử...",
+          images: ["img/muidien1.jpg", "img/muidien2.jpg"],
+          likes: 42,
+          isLiked: true // Ví dụ bài này đã được like
+        },
+        {
+          id: Date.now() + 3,
+          title: "Ẩm Thực Phú Yên - Mắt Cá Ngừ Đại Dương Không Thể Bỏ Qua!",
+          author: "Lê Cường",
+          date: "10/05/2025",
+          content: "Đến Phú Yên nhất định phải thử món mắt cá ngừ đại dương tiềm thuốc bắc.\nNghe có vẻ lạ nhưng hương vị rất đặc biệt, béo ngậy và bổ dưỡng. Các quán hải sản ở đây cũng rất tươi ngon và giá cả hợp lý.",
+          images: ["img/matcangu.jpeg"],
+          likes: 30,
+          isLiked: false
+        }
+      ];
+
+      function getPosts() {
+        let communityPosts = JSON.parse(localStorage.getItem("communityPosts"));
+        if (!communityPosts) {
+            // Khởi tạo likes và isLiked cho samplePosts nếu chưa có
+            const initializedSamplePosts = samplePosts.map(post => ({
+                ...post,
+                likes: post.likes || 0,
+                isLiked: post.isLiked || false
+            }));
+            localStorage.setItem("communityPosts", JSON.stringify(initializedSamplePosts));
+            return initializedSamplePosts;
+        }
+        // Đảm bảo các bài viết từ localStorage cũng có trường isLiked
+        return communityPosts.map(post => ({
+            ...post,
+            likes: post.likes || 0,
+            isLiked: post.isLiked || false
+        }));
+      }
+
+
+      function savePosts(posts) {
+        localStorage.setItem("communityPosts", JSON.stringify(posts));
+      }
+
+      function loadPosts() {
+        let postsToDisplay = getPosts();
+        postsToDisplay.sort((a, b) => b.id - a.id);
+        renderPosts(postsToDisplay);
+      }
+
+      function renderPosts(posts) {
+        postsContainer.innerHTML = "";
+        if (posts.length === 0) {
+            noPostsMessage.style.display = "block";
+            return;
+        }
+        noPostsMessage.style.display = "none";
+
+        posts.forEach(post => {
+          const postElement = document.createElement("div");
+          postElement.classList.add("col");
+          const thumbnailUrl = (post.images && post.images.length > 0) ? post.images[0] : "img/default_post_image.jpg";
+          // Thêm class 'liked' cho nút trái tim nếu isLiked là true
+          const likedClass = post.isLiked ? 'liked' : '';
+
+          postElement.innerHTML = `
+            <div class="card h-100 post-card">
+              <img src="${thumbnailUrl}" class="card-img-top" alt="${post.title}">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">${post.title}</h5>
+                <p class="card-text post-meta">
+                    <i class="fas fa-user me-1"></i>${post.author} - <i class="fas fa-calendar-alt me-1"></i>${post.date}
+                </p>
+                <p class="card-text post-content-preview">${truncateContent(post.content, 100)}</p>
+                <div class="mt-auto card-actions">
+                    <div>
+                        <a href="#" class="btn btn-read-more" onclick="viewPostDetails(event, ${post.id})">Đọc thêm <i class="fas fa-arrow-right ms-1"></i></a>
+                        <button class="btn btn-delete-post" onclick="confirmDeletePost(${post.id})">
+                            <i class="fas fa-trash-alt me-1"></i>Xóa
+                        </button>
+                    </div>
+                    <span class="like-button ${likedClass}" onclick="toggleLike(${post.id})">
+                        <i class="fas fa-heart me-1"></i><span id="like-count-${post.id}">${post.likes}</span>
+                    </span>
+                </div>
+              </div>
+            </div>
+          `;
+          postsContainer.appendChild(postElement);
+        });
+      }
+
+      function toggleLike(postId) {
+        let posts = getPosts();
+        const postIndex = posts.findIndex(p => p.id === postId);
+        if (postIndex > -1) {
+            if (posts[postIndex].isLiked) {
+                posts[postIndex].likes--;
+                posts[postIndex].isLiked = false;
+            } else {
+                posts[postIndex].likes++;
+                posts[postIndex].isLiked = true;
+            }
+            savePosts(posts);
+            // Cập nhật trực tiếp giao diện cho nút like và số like đó
+            const likeButton = postsContainer.querySelector(`.like-button[onclick="toggleLike(${postId})"]`);
+            const likeCountSpan = document.getElementById(`like-count-${postId}`);
+            if (likeButton && likeCountSpan) {
+                likeCountSpan.textContent = posts[postIndex].likes;
+                if (posts[postIndex].isLiked) {
+                    likeButton.classList.add('liked');
+                } else {
+                    likeButton.classList.remove('liked');
+                }
+            }
+        }
+      }
+
+
+      function viewPostDetails(event, postId) {
+          event.preventDefault();
+          const posts = getPosts();
+          const post = posts.find(p => p.id === postId);
+          if (post) {
+              modalPostTitle.textContent = post.title;
+              modalPostAuthor.textContent = post.author;
+              modalPostDate.textContent = post.date;
+              modalPostContent.textContent = post.content;
+
+              modalCarouselInner.innerHTML = '';
+              modalPostImagesCarousel.style.display = 'none';
+              modalPostSingleImage.style.display = 'none';
+
+              if (post.images && post.images.length > 0) {
+                  if (post.images.length === 1) {
+                      modalPostSingleImage.src = post.images[0];
+                      modalPostSingleImage.style.display = 'block';
+                  } else {
+                      post.images.forEach((imgSrc, index) => {
+                          const carouselItem = document.createElement('div');
+                          carouselItem.classList.add('carousel-item');
+                          if (index === 0) {
+                              carouselItem.classList.add('active');
+                          }
+                          carouselItem.innerHTML = `<img src="${imgSrc}" class="d-block w-100" alt="Ảnh bài viết ${index + 1}">`;
+                          modalCarouselInner.appendChild(carouselItem);
+                      });
+                      modalPostImagesCarousel.style.display = 'block';
+                  }
+              }
+              postDetailModal.show();
+          }
+      }
+
+      function truncateContent(content, maxLength) {
+        if (content.length <= maxLength) return content;
+        return content.substring(0, maxLength) + "...";
+      }
+
+      function confirmDeletePost(postId) {
+        if (confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
+            deletePost(postId);
+        }
+      }
+
+      function deletePost(postId) {
+        let posts = getPosts();
+        posts = posts.filter(post => post.id !== postId);
+        savePosts(posts);
+        loadPosts();
+        alert("Đã xóa bài viết.");
+      }
+
+      postImagesInput.addEventListener("change", function() {
+          imagePreviewContainer.innerHTML = '';
+          if (this.files) {
+              Array.from(this.files).forEach(file => {
+                  if (!file.type.startsWith('image/')){ return }
+                  const reader = new FileReader();
+                  reader.onload = function(e) {
+                      const previewItem = document.createElement('div');
+                      previewItem.classList.add('image-preview-item');
+                      previewItem.innerHTML = `<img src="${e.target.result}" alt="Image preview">`;
+                      imagePreviewContainer.appendChild(previewItem);
+                  }
+                  reader.readAsDataURL(file);
+              });
+          }
+      });
+
+      createPostForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const title = document.getElementById("postTitle").value.trim();
+        const author = document.getElementById("postAuthor").value.trim() || "Khách";
+        const content = document.getElementById("postContent").value.trim();
+        const imageFiles = postImagesInput.files;
+
+        if (!title || !content || !author) {
+          alert("Vui lòng nhập tiêu đề, tên của bạn và nội dung bài viết.");
+          return;
+        }
+
+        const imagePromises = [];
+        if (imageFiles.length > 0) {
+            for (let i = 0; i < imageFiles.length; i++) {
+                const file = imageFiles[i];
+                if (file.type.startsWith('image/')) {
+                    imagePromises.push(new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve(reader.result);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    }));
+                }
+            }
+        }
+
+        try {
+            const base64Images = await Promise.all(imagePromises);
+            const newPost = {
+                id: Date.now(),
+                title: title,
+                author: author,
+                date: new Date().toLocaleDateString("vi-VN"),
+                content: content,
+                images: base64Images,
+                likes: 0, // Like ban đầu là 0
+                isLiked: false // Chưa được like
+            };
+
+            let posts = getPosts();
+            posts.push(newPost);
+            savePosts(posts);
+            loadPosts();
+            createPostForm.reset();
+            imagePreviewContainer.innerHTML = '';
+            alert("Bài viết của bạn đã được đăng!");
+
+        } catch (error) {
+            console.error("Lỗi khi đọc file ảnh:", error);
+            alert("Đã có lỗi xảy ra khi tải ảnh lên. Vui lòng thử lại.");
+        }
+      });
+
+      window.addEventListener("load", loadPosts);
+    </script>
+  </body>
+</html>

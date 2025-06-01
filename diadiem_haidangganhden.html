@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hải Đăng Gành Đèn - Du Lịch Phú Yên</title>
+    <link rel="icon" type="image/jpg" href="img/logo.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding-top: 70px; 
+        }
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: var(--primary-color); 
+        }
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        .carousel-item img {
+            max-height: 550px; 
+            object-fit: cover; 
+        }
+        .section-title {
+            font-family: "Noto Sans", sans-serif;
+            font-weight: 700;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block; 
+            margin-bottom: 25px; 
+            padding-bottom: 10px; 
+        }
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 80px; 
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        .map-responsive iframe {
+            border-radius: 0 0 12px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="scrollProgress"></div>
+
+    <div id="pageLoader">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40">
+        </a>
+        <strong>Du Lịch Phú Yên</strong>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+            <li class="nav-item"><a class="nav-link active" href="diadiem.html">Địa điểm</a></li>
+            <li class="nav-item"><a class="nav-link" href="amthuc.html">Ẩm thực</a></li>
+            <li class="nav-item"><a class="nav-link" href="lichtrinh.html">Lịch trình</a></li>
+            <li class="nav-item"><a class="nav-link" href="congdong.html">Cộng đồng</a></li>
+            <li class="nav-item"><a class="nav-link" href="lienhe.html">Liên hệ</a></li>
+          </ul>
+          <form class="d-flex ms-3">
+            <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search"/>
+            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+          </form>
+          <button class="btn btn-outline-secondary ms-3" id="themeToggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-5">
+        <nav aria-label="breadcrumb" class="animate__animated animate__fadeInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="diadiem.html">Địa điểm</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Hải Đăng Gành Đèn</li>
+            </ol>
+        </nav>
+
+        <article>
+            <header class="mb-4 text-center animate__animated animate__fadeInUp">
+                <h1 class="text-center py-3">Hải Đăng Gành Đèn</h1>
+                <p class="text-muted lead">Ngọn hải đăng duyên dáng bên những khối đá kỳ vĩ</p>
+                <hr class="mt-0">
+            </header>
+
+            <section class="row">
+                <div class="col-lg-8">
+                    <div id="carouselGanhDen" class="carousel slide mb-4 shadow-sm animate__animated animate__fadeInUp" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselGanhDen" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselGanhDen" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselGanhDen" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner rounded">
+                            <div class="carousel-item active">
+                                <img src="img/ganhden2.jpg" class="d-block w-100" alt="Hải đăng Gành Đèn nhìn từ xa" loading="lazy">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img/ganhden3.jpg" class="d-block w-100" alt="Cận cảnh Hải đăng Gành Đèn" loading="lazy">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img/ganhden4.jpg" class="d-block w-100" alt="Khung cảnh xung quanh Gành Đèn" loading="lazy">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselGanhDen" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselGanhDen" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <div class="animate__animated animate__fadeInUp text-center">
+                        <h2>Giới Thiệu Chung</h2>
+                    </div>
+                    <div class="animate__animated animate__fadeInUp">
+                        <p>Hải đăng Gành Đèn (hay Ghềnh Đèn) tọa lạc tại xã An Ninh Đông, huyện Tuy An, tỉnh Phú Yên, nổi bật với hai màu sơn đỏ trắng trên nền những tảng đá granit hồng xếp chồng lên nhau. Dù không đồ sộ như Hải đăng Đại Lãnh, Gành Đèn mang một vẻ đẹp duyên dáng, bình dị và là điểm đến không thể bỏ qua khi khám phá khu vực Bắc Phú Yên.</p>
+                        <p>Ngọn hải đăng này có nhiệm vụ dẫn đường cho tàu thuyền ra vào vịnh Vũng Chào và đầm Ô Loan. Đứng từ Gành Đèn, du khách có thể thu vào tầm mắt một vùng biển trời bao la, những khối đá đủ hình thù kỳ lạ và xa xa là Gành Đá Đĩa nổi tiếng. Khung cảnh nơi đây đặc biệt thơ mộng vào lúc bình minh hoặc hoàng hôn.</p>
+                    </div>
+
+                    <div class="animate__animated animate__fadeInUp text-center mt-4">
+                        <h3>Điểm Nổi Bật</h3>
+                    </div>
+                    <div class="animate__animated animate__fadeInUp">
+                        <ul>
+                            <li><strong>Kiến trúc đơn giản, nổi bật:</strong> Ngọn hải đăng hình trụ, sơn hai màu đỏ - trắng đặc trưng, cao khoảng 10m, đứng vững chãi giữa biển trời.</li>
+                            <li><strong>Khung cảnh đá độc đáo:</strong> Xung quanh hải đăng là bãi đá granit màu hồng nhạt, bị bào mòn bởi sóng biển tạo nên những hình thù lạ mắt, là nơi check-in lý tưởng.</li>
+                            <li><strong>Vị trí gần Gành Đá Đĩa:</strong> Rất thuận tiện để kết hợp tham quan cùng Gành Đá Đĩa, một trong những biểu tượng của du lịch Phú Yên.</li>
+                            <li><strong>Không gian yên bình:</strong> So với các điểm du lịch đông đúc khác, Gành Đèn giữ được nét hoang sơ, tĩnh lặng, thích hợp cho những ai muốn tìm một nơi thư giãn, ngắm cảnh.</li>
+                        </ul>
+                    </div>
+
+                    <div class="animate__animated animate__fadeInUp text-center mt-4">
+                         <h3>Hoạt Động Trải Nghiệm</h3>
+                    </div>
+                    <div class="animate__animated animate__fadeInUp">
+                        <ul>
+                            <li>Tham quan, chụp ảnh cùng ngọn hải đăng và các khối đá.</li>
+                            <li>Ngắm cảnh biển, tận hưởng không khí trong lành, mát mẻ.</li>
+                            <li>Quan sát hoạt động của tàu thuyền ngư dân.</li>
+                            <li>Kết hợp tham quan Gành Đá Đĩa, Nhà thờ Mằng Lăng, Đầm Ô Loan.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <aside class="col-lg-4">
+                    <div class="card shadow-sm mb-4 animate__animated animate__fadeInUp">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0"><i class="fas fa-info-circle me-2"></i>Thông Tin Hữu Ích</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Vị trí:</strong> Thôn Tân Phước, Xã An Ninh Đông, H. Tuy An, Phú Yên</li>
+                            <li class="list-group-item"><strong>Cách di chuyển:</strong> Từ Gành Đá Đĩa đi về phía Bắc khoảng 1-2 km là đến. Đường đi dễ dàng, có thể đi xe máy hoặc ô tô.</li>
+                            <li class="list-group-item"><strong>Giờ mở cửa:</strong> Tham quan tự do (nên đi ban ngày).</li>
+                            <li class="list-group-item"><strong>Giá vé:</strong> Miễn phí tham quan.</li>
+                            <li class="list-group-item"><strong>Thời điểm lý tưởng:</strong> Buổi sáng sớm hoặc chiều tà là thời điểm đẹp nhất để ngắm cảnh.</li>
+                            <li class="list-group-item"><strong>Lưu ý:</strong>
+                                <ul class="ps-3">
+                                    <li>Cẩn thận khi di chuyển trên các mỏm đá, đặc biệt khi trời mưa hoặc đá ướt.</li>
+                                    <li>Mang giày dép có độ bám tốt.</li>
+                                    <li>Giữ gìn vệ sinh chung, không xả rác.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card shadow-sm animate__animated animate__fadeInUp">
+                        <div class="card-header">
+                             <h5 class="card-title mb-0"><i class="fas fa-map-marked-alt me-2"></i>Vị Trí Trên Bản Đồ</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="map-responsive">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.7125510033625!2d109.29137847484854!3d13.363965086988657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f9bcae7af52c9%3A0xba14153f3c0d89f7!2zSOG6o2kgxJDEg25nIEfDoG5oIMSQw6hu!5e1!3m2!1svi!2s!4v1747023386800!5m2!1svi!2s" width="100%" height="240" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+        </article>
+    </main>
+
+    <footer class="text-center py-3">
+        <div class="container">
+          <p>© <span id="currentYear"></span> Phú Yên Travel.<br />
+            Liên hệ: <a href="mailto:info@phuyentourism.vn" class="text-white">info@phuyentourism.vn</a> | Điện thoại: 0123 456 789
+          </p>
+        </div>
+    </footer>
+
+    <button id="soundToggle" title="Toggle Sound"><i class="fas fa-volume-up"></i></button>
+    <button id="scrollTopBtn" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+      // Scroll Progress
+      window.addEventListener("scroll", () => {
+        const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const scrollProgressBar = document.getElementById("scrollProgress");
+        if (scrollProgressBar) {
+            scrollProgressBar.style.width = scrolled + "%";
+        }
+      });
+
+      // Scroll to Top
+      const scrollTopBtn = document.getElementById("scrollTopBtn");
+      if (scrollTopBtn) {
+          window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+              scrollTopBtn.classList.add("show");
+            } else {
+              scrollTopBtn.classList.remove("show");
+            }
+          });
+          scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+      }
+
+      // Page Loader
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("pageLoader");
+        if (loader) {
+            loader.style.opacity = "0";
+            setTimeout(() => {
+              loader.style.display = "none";
+            }, 500);
+        }
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+          } else {
+              document.body.classList.remove('dark-mode');
+              themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+          }
+
+          themeToggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            const isDarkMode = document.body.classList.contains("dark-mode");
+            themeToggle.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+          });
+      }
+      
+      // Sound Toggle
+      const soundToggleButton = document.getElementById("soundToggle");
+      let soundEnabled = true; 
+      let audioUnlocked = false; 
+      const hoverSound = new Audio("https://cdn.pixabay.com/audio/2023/03/24/01-01-39-963_48k.mp3"); 
+      hoverSound.loop = false;
+
+      function unlockAudio() {
+          if (!audioUnlocked && hoverSound) {
+              hoverSound.play().then(() => {
+                  hoverSound.pause();
+                  hoverSound.currentTime = 0; 
+                  audioUnlocked = true;
+              }).catch(error => {
+                  console.log("Lỗi mở khóa âm thanh tự động:", error);
+              });
+          }
+      }
+      
+      window.addEventListener('load', unlockAudio);
+
+      if (soundToggleButton) {
+          soundToggleButton.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            soundToggleButton.innerHTML = soundEnabled
+              ? '<i class="fas fa-volume-up"></i>'
+              : '<i class="fas fa-volume-mute"></i>';
+            if (soundEnabled && !audioUnlocked) {
+                unlockAudio(); 
+            }
+          });
+      }
+
+      document.querySelectorAll(".btn, .card").forEach((element) => {
+        element.addEventListener("mouseenter", () => {
+          if (soundEnabled && audioUnlocked && hoverSound) {
+            hoverSound.currentTime = 0; 
+            hoverSound.play().catch(err => console.log("Lỗi phát âm thanh:", err));
+          }
+        });
+      });
+
+      function firstUserInteractionUnlock() {
+        unlockAudio();
+      }
+      document.addEventListener('click', firstUserInteractionUnlock, { once: true });
+      document.addEventListener('touchstart', firstUserInteractionUnlock, { once: true });
+
+    </script>
+</body>
+</html>

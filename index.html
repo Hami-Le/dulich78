@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Du lịch Phú Yên - Trang Chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="style.css" />
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40" />
+        </a>
+        <strong>Du Lịch Phú Yên</strong>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav gap-3">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diadiem.html">Địa điểm</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="amthuc.html">Ẩm thực</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lichtrinh.html">Lịch trình</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="congdong.html">Cộng đồng</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lienhe.html">Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header
+      class="hero-section position-relative"
+      style="height: 100vh; overflow: hidden"
+    >
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        class="w-100 h-100 position-absolute top-0 start-0"
+        style="object-fit: cover;"
+      >
+        <source src="video/intro.mp4" type="video/mp4" />
+      </video>
+
+      <div class="container h-100 d-flex flex-column justify-content-center align-items-center text-center text-white" style="position: relative; z-index: 1">
+        <h1 class="display-3 fw-bold">Khám Phá Phú Yên</h1>
+        <p class="lead my-3">
+          Vùng đất "hoa vàng trên cỏ xanh" với vẻ đẹp hoang sơ và quyến rũ.
+        </p>
+        <a href="diadiem.html" class="btn btn-primary btn-lg">Tìm Hiểu Ngay</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="py-5">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h2>Chào Mừng Đến Phú Yên</h2>
+              <p class="lead">
+                Phú Yên, một viên ngọc ẩn mình của dải đất miền Trung Việt Nam,
+                mời gọi du khách bằng những bãi biển cát trắng trải dài, những
+                ghềnh đá độc đáo do thiên nhiên kiến tạo, và một nền văn hóa
+                Chăm Pa cổ kính xen lẫn nét bình dị của người dân xứ Nẫu.
+              </p>
+              <p>
+                Từ Gành Đá Đĩa kỳ vĩ, Mũi Điện hùng tráng nơi đón ánh bình minh
+                đầu tiên trên đất liền, đến những món hải sản tươi ngon khó
+                cưỡng, Phú Yên hứa hẹn mang đến những trải nghiệm khó quên.
+              </p>
+            </div>
+            <div class="col-md-6">
+              <img
+                src="img/phuyen.jpg"
+                alt="Tổng quan Phú Yên"
+                class="img-fluid rounded shadow"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-4">Điểm Đến Không Thể Bỏ Lỡ</h2>
+          <div class="row">
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img
+                  src="img/ganhdadia1.jpg"
+                  class="card-img-top"
+                  alt="Gành Đá Đĩa"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Gành Đá Đĩa</h5>
+                  <p class="card-text">
+                    Kiệt tác của thiên nhiên với hàng ngàn khối đá bazan hình
+                    lục giác xếp chồng lên nhau.
+                  </p>
+                  <a
+                    href="diadiem_ganhdadia.html"
+                    class="btn btn-outline-primary"
+                    >Xem chi tiết</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img
+                  src="img/muidien1.jpg"
+                  class="card-img-top"
+                  alt="Mũi Điện"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Mũi Điện - Hải Đăng Đại Lãnh</h5>
+                  <p class="card-text">
+                    Nơi đón ánh bình minh đầu tiên trên đất liền Việt Nam, khung
+                    cảnh hùng vĩ.
+                  </p>
+                  <a href="diadiem_muidien.html" class="btn btn-outline-primary"
+                    >Xem chi tiết</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img
+                  src="img/nghinhphong1.jpg"
+                  class="card-img-top"
+                  alt="Tháp Nghinh Phong"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Tháp Nghinh Phong</h5>
+                  <p class="card-text">
+                    Công trình kiến trúc độc đáo, biểu tượng mới của thành phố
+                    Tuy Hòa.
+                  </p>
+                  <a
+                    href="diadiem_thapnghinhphong.html"
+                    class="btn btn-outline-primary"
+                    >Xem chi tiết</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <a href="diadiem.html" class="btn btn-primary"
+              >Xem Tất Cả Địa Điểm</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5">
+        <div class="container">
+          <h2 class="text-center mb-4">Khám Phá Ẩm Thực Phú Yên</h2>
+          <div class="row">
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img
+                  src="img/matcangudaiduong.jpg"
+                  class="card-img-top"
+                  alt="Mắt cá ngừ đại dương"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Mắt Cá Ngừ Đại Dương</h5>
+                  <p class="card-text">
+                    Đặc sản trứ danh, bổ dưỡng và độc đáo của Phú Yên.
+                  </p>
+                  <a
+                    href="chitiet_amthuc_matcangu.html"
+                    class="btn btn-outline-success"
+                    >Thưởng thức ngay</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img
+                  src="img/banhcanhhe.jpg"
+                  class="card-img-top"
+                  alt="Bánh canh hẹ"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Bánh Canh Hẹ</h5>
+                  <p class="card-text">
+                    Món ăn dân dã, đậm đà hương vị biển với chả cá và lá hẹ xanh
+                    mướt.
+                  </p>
+                  <a
+                    href="chitiet_amthuc_banhcanhhe.html"
+                    class="btn btn-outline-success"
+                    >Thưởng thức ngay</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img
+                  src="img/sohuyet.jpg"
+                  class="card-img-top"
+                  alt="Sò huyết Ô Loan"
+                  style="height: 200px; object-fit: cover"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Sò Huyết Đầm Ô Loan</h5>
+                  <p class="card-text">
+                    Sò huyết tươi ngon, ngọt thịt từ đầm Ô Loan nổi tiếng.
+                  </p>
+                  <a
+                    href="chitiet_amthuc_sohuyet.html"
+                    class="btn btn-outline-success"
+                    >Thưởng thức ngay</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <a href="amthuc.html" class="btn btn-success"
+              >Khám Phá Thêm Món Ngon</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5 bg-light">
+        <div class="container">
+          <h2 class="text-center mb-4">Gợi Ý Lịch Trình Cho Bạn</h2>
+          <div class="row">
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Phú Yên 3 Ngày 2 Đêm: Khám Phá Trọn Vẹn
+                  </h5>
+                  <p class="card-text">
+                    Lịch trình chi tiết giúp bạn khám phá những điểm đến nổi bật
+                    nhất từ Bắc tới Nam Phú Yên, kết hợp thưởng thức ẩm thực đặc
+                    sắc.
+                  </p>
+                  <a href="lichtrinh.html#3n2d" class="btn btn-info text-white"
+                    >Xem Lịch Trình</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title">Phú Yên Cuối Tuần: Nạp Năng Lượng</h5>
+                  <p class="card-text">
+                    Dành cho những ai có ít thời gian nhưng vẫn muốn trải nghiệm
+                    vẻ đẹp của Phú Yên với các điểm đến gần trung tâm Tuy Hòa.
+                  </p>
+                  <a
+                    href="lichtrinh.html#cuoituan"
+                    class="btn btn-info text-white"
+                    >Xem Lịch Trình</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <a href="lichtrinh.html" class="btn btn-primary"
+              >Xem Thêm Lịch Trình</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+      <div class="container">
+        <p class="mb-0">&copy; 2024 Du Lịch Phú Yên.</p>
+        <p>Liên hệ: contact@dulichphuyen.xyz | Điện thoại: 0123 456 789</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

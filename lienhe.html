@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên Hệ - Du Lịch Phú Yên</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .page-header-contact {
+        background-image: url("img/tt6.jpg"); /* Thay bằng ảnh banner của bạn */
+        background-size: cover;
+        background-position: center;
+        height: 40vh; /* Giảm chiều cao hơn các trang khác */
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      }
+      .page-header-contact h1 {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+      .contact-info i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        color: #0d6efd; /* Màu primary của Bootstrap */
+      }
+      /* Thêm style cho thông báo lỗi của từng trường */
+      .error-message {
+        color: red;
+        font-size: 0.875em; /* Kích thước chữ nhỏ hơn cho thông báo lỗi */
+        margin-top: 0.25rem; /* Khoảng cách nhỏ phía trên thông báo lỗi */
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40" />
+        </a>
+        <strong>Du Lịch Phú Yên</strong>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav gap-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="diadiem.html">Địa điểm</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="amthuc.html">Ẩm thực</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="lichtrinh.html">Lịch trình</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="congdong.html">Cộng đồng</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="lienhe.html">Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="page-header-contact text-center">
+      <h1>Kết Nối Với Chúng Tôi</h1>
+    </header>
+
+    <main class="container py-5">
+      <div class="row">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="h4 mb-3">Thông Tin Liên Hệ</h2>
+          <div class="contact-info">
+            <p>
+              <i class="fas fa-map-marker-alt"></i>
+              <strong>Địa chỉ:</strong> 470 Đ. Trần Đại Nghĩa, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng
+            </p>
+            <p>
+              <i class="fas fa-phone-alt"></i> <strong>Điện thoại:</strong>
+              <a href="tel:0123456789">0123 456 789</a>
+            </p>
+            <p>
+              <i class="fas fa-envelope"></i> <strong>Email:</strong>
+              <a href="mailto:info@dulichphuyen.xyz">dulichpy78@gmail.com</a>
+            </p>
+          </div>
+          <hr />
+          <h3 class="h5 mt-4 mb-3">Mạng Xã Hội</h3>
+          <div>
+            <a href="https://www.facebook.com/profile.php?id=61576302893102" class="btn btn-outline-primary me-2"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="https://www.instagram.com/phuyen78hihi/" class="btn btn-outline-danger me-2"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.youtube.com/@DuL%E1%BB%8BchPh%C3%BAY%C3%AAn-z5h" class="btn btn-outline-info"><i class="fab fa-youtube"></i> Youtube</a>
+          </div>
+          <div class="mt-4">
+            <h3 class="h5">Vị Trí Văn Phòng</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.734025012017!2d108.25065207490204!3d15.975260284690657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2sVietnam%20-%20Korea%20University%20of%20Information%20and%20Communication%20Technology!5e0!3m2!1sen!2s!4v1746811297837!5m2!1sen!2s" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <h2 class="h4 mb-3">Gửi Tin Nhắn Cho Chúng Tôi</h2>
+          <form id="contactForm">
+            <div class="mb-3">
+              <label for="contactName" class="form-label"
+                >Họ và Tên <span class="text-danger">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="contactName"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="contactEmail" class="form-label"
+                >Email <span class="text-danger">*</span></label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="contactEmail"
+                required
+              />
+              <div id="emailError" class="error-message" style="display:none;">Email không hợp lệ.</div>
+            </div>
+            <div class="mb-3">
+              <label for="contactPhone" class="form-label">Số Điện Thoại</label>
+              <input type="tel" class="form-control" id="contactPhone" />
+              <div id="phoneError" class="error-message" style="display:none;">Số điện thoại không hợp lệ.</div>
+            </div>
+            <div class="mb-3">
+              <label for="contactSubject" class="form-label">Chủ Đề</label>
+              <input type="text" class="form-control" id="contactSubject" />
+            </div>
+            <div class="mb-3">
+              <label for="contactMessage" class="form-label"
+                >Nội Dung Tin Nhắn <span class="text-danger">*</span></label
+              >
+              <textarea
+                class="form-control"
+                id="contactMessage"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Gửi Tin Nhắn</button>
+          </form>
+          <div id="formMessage" class="mt-3"></div>
+        </div>
+      </div>
+
+      <section class="py-5 mt-5 bg-light rounded">
+        <h2 class="text-center mb-4">Câu Hỏi Thường Gặp (FAQ)</h2>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne"
+              >
+                Thời điểm nào đẹp nhất để du lịch Phú Yên?
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingOne"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="accordion-body">
+                Phú Yên có khí hậu hai mùa rõ rệt: mùa mưa (tháng 9 - tháng 12)
+                và mùa khô (tháng 1 - tháng 8).
+                <strong
+                  >Thời điểm lý tưởng nhất để du lịch Phú Yên là vào mùa
+                  khô</strong
+                >, đặc biệt từ tháng 3 đến tháng 8, khi thời tiết nắng đẹp, biển
+                trong xanh và ít mưa, thuận lợi cho các hoạt động tham quan và
+                tắm biển.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="false"
+                aria-controls="collapseTwo"
+              >
+                Phương tiện di chuyển phổ biến ở Phú Yên là gì?
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="accordion-body">
+                <ul>
+                  <li>
+                    <strong>Xe máy:</strong> Phổ biến nhất để tự do khám phá, dễ
+                    dàng thuê tại Tuy Hòa.
+                  </li>
+                  <li>
+                    <strong>Ô tô/Taxi:</strong> Thuận tiện cho nhóm đông hoặc
+                    gia đình, có thể thuê xe tự lái hoặc taxi.
+                  </li>
+                  <li>
+                    <strong>Xe buýt:</strong> Có một số tuyến xe buýt kết nối
+                    các điểm trong tỉnh nhưng không quá tiện lợi cho du lịch tự
+                    túc.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+      <div class="container">
+        <p class="mb-0">© 2025 Du Lịch Phú Yên. Bảo lưu mọi quyền.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Xử lý form liên hệ
+      const contactForm = document.getElementById("contactForm");
+      const formMessage = document.getElementById("formMessage"); // Thông báo chung
+      const contactNameInput = document.getElementById("contactName");
+      const emailInput = document.getElementById("contactEmail");
+      const contactMessageInput = document.getElementById("contactMessage");
+      const phoneInput = document.getElementById("contactPhone");
+
+      // Lấy các div hiển thị lỗi cụ thể
+      const emailErrorDiv = document.getElementById("emailError");
+      const phoneErrorDiv = document.getElementById("phoneError");
+
+
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (event) {
+          event.preventDefault(); // Ngăn form submit theo cách truyền thống
+
+          // Reset các thông báo lỗi trước mỗi lần submit
+          formMessage.innerHTML = ""; // Xóa thông báo chung
+          if(emailErrorDiv) emailErrorDiv.style.display = "none"; // Ẩn lỗi email
+          if(phoneErrorDiv) phoneErrorDiv.style.display = "none"; // Ẩn lỗi điện thoại
+
+          let isValid = true; // Biến cờ để kiểm tra tính hợp lệ
+
+          // Lấy giá trị từ các trường
+          const name = contactNameInput.value.trim();
+          const email = emailInput.value.trim();
+          const message = contactMessageInput.value.trim();
+          const phone = phoneInput.value.trim(); // Lấy giá trị số điện thoại
+
+          // 1. Validate các trường bắt buộc chung
+          if (name === "" || email === "" || message === "") {
+            formMessage.innerHTML =
+              '<div class="alert alert-danger" role="alert">Vui lòng điền đầy đủ các trường bắt buộc (*).</div>';
+            isValid = false;
+          }
+
+          if (email !== "" && !email.endsWith("@gmail.com")) {
+            if(emailErrorDiv) emailErrorDiv.style.display = "block"; 
+            if (isValid) { 
+                emailInput.focus();
+            }
+            isValid = false;
+          }
+
+          if (phone !== "") { // Nếu người dùng có nhập số điện thoại
+            if (!/^\d{10}$/.test(phone)) { // Kiểm tra xem có phải là 10 chữ số không
+              if(phoneErrorDiv) phoneErrorDiv.style.display = "block"; // Hiển thị lỗi điện thoại
+              if (isValid) { // Chỉ focus nếu chưa có lỗi nào khác
+                phoneInput.focus();
+              }
+              isValid = false;
+            }
+          }
+
+          // Nếu form không hợp lệ, dừng lại
+          if (!isValid) {
+            return;
+          }
+
+          // Nếu tất cả đều hợp lệ, giả lập gửi form thành công
+          formMessage.innerHTML =
+            '<div class="alert alert-success" role="alert">Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.</div>';
+          contactForm.reset(); // Xóa nội dung form
+        });
+      }
+    </script>
+  </body>
+</html>

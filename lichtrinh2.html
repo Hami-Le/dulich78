@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Du Lịch Phú Yên 2025</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/swiper@8/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: var(--bg-light);
+            font-family: "Quicksand", sans-serif;
+            padding-top: 70px; 
+        }
+
+        header.page-header-tours {
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: var(--white);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        header.page-header-tours::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 1;
+        }
+        header.page-header-tours h1, header.page-header-tours p {
+            position: relative;
+            z-index: 2;
+        }
+        header.page-header-tours h1 {
+            font-family: "Noto Sans", sans-serif;
+            font-weight: 700;
+        }
+
+        .h-tour-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.35s ease;
+            display: flex;
+            flex-direction: column; 
+            margin-bottom: 2.5rem; 
+        }
+        .h-tour-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .h-tour-card-image {
+            width: 100%; 
+            height: 250px; 
+            object-fit: cover;
+            border-radius: 12px 12px 0 0; 
+        }
+        .h-tour-card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; 
+        }
+        .h-tour-card-title {
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        .h-tour-card-info {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+        }
+        .h-tour-card-info i {
+            margin-right: 0.6rem;
+            color: var(--primary-color);
+            width: 18px;
+            text-align: center;
+        }
+        .h-tour-card-price strong {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+        .h-tour-card-description {
+            font-size: 0.9rem;
+            color: #454545;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            flex-grow: 1; 
+        }
+        .h-tour-card-actions {
+            margin-top: auto; 
+            display: flex;
+            gap: 0.75rem; 
+            flex-wrap: wrap; 
+        }
+        .h-tour-card-actions .btn-custom {
+            padding: 0.6rem 1.25rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            color: var(--white);
+            border: none;
+        }
+        .h-tour-card-actions .btn-details {
+            background-color: var(--secondary-color); 
+            color: var(--text-color);
+        }
+        .h-tour-card-actions .btn-details:hover {
+            background-color: #e6b400; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .h-tour-card-actions .btn-book {
+            background-color: var(--primary-color); 
+        }
+         .h-tour-card-actions .btn-book:hover {
+            background-color: #0086c3; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (min-width: 768px) { 
+            .h-tour-card {
+                flex-direction: row; 
+            }
+            .h-tour-card-image {
+                width: 300px; 
+                height: auto; 
+                min-height: 100%; 
+                border-radius: 12px 0 0 12px; 
+            }
+        }
+
+        /* Modal Styling - Chung */
+        /* .modal class của Bootstrap đã có z-index, không cần set lại trừ khi có xung đột mạnh */
+        
+        /* Style cho modal đặt tour (booking) */
+        /* Bỏ class .booking-modal-content và dùng class .modal-content của Bootstrap */
+        /* Nếu cần tùy chỉnh thêm cho modal đặt vé, có thể tạo class riêng và bọc bên trong .modal-content */
+        #bookingModal .modal-dialog { /* Điều chỉnh kích thước modal đặt vé nếu cần */
+            max-width: 500px;
+        }
+        #bookingModal .form-label { font-size: 0.85rem; color: #333; font-weight: 600; }
+        #bookingModal input, #bookingModal textarea { font-size: 0.9rem; padding: 0.75rem; border-radius: 6px; }
+        #bookingModal button[type="submit"] { background-color: var(--accent-color); font-weight: 600; color: var(--white); }
+        #bookingModal button[type="submit"]:hover { background-color: #e65a5a; }
+        
+        /* Style cho modal chi tiết tour */
+        .tour-detail-modal-content-custom .modal-header-custom { 
+            padding: 1rem 1.5rem; 
+            border-bottom: 1px solid #dee2e6; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .tour-detail-modal-content-custom .modal-title-custom { 
+            font-family: "Noto Sans", sans-serif; 
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            color: var(--primary-color); 
+        }
+        .tour-detail-modal-content-custom .modal-body-custom { 
+            padding: 1.5rem; 
+            overflow-y: auto; 
+            flex-grow: 1;
+        } 
+        .tour-detail-modal-content-custom .modal-footer-custom { 
+            padding: 1rem 1.5rem; 
+            border-top: 1px solid #dee2e6; 
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .tour-detail-modal-content-custom h4.detail-section-title { font-family: "Noto Sans", sans-serif; font-size: 1.2rem; font-weight: 600; color: var(--text-color); margin-top: 1.25rem; margin-bottom: 0.75rem; }
+        .tour-detail-modal-content-custom ul { list-style: none; padding-left: 0; }
+        .tour-detail-modal-content-custom ul li { padding-left: 1.5em; position: relative; margin-bottom: 0.5rem; font-size: 0.9rem; color: #454545; }
+        .tour-detail-modal-content-custom ul li::before { content: "\f138"; font-family: "Font Awesome 5 Free"; font-weight: 900; color: var(--secondary-color); position: absolute; left: 0; top: 1px; }
+        #detailModalCarousel .carousel-item img { height: 300px; object-fit: cover; border-radius: 8px; }
+
+        /* Style cho modal thành công (Success Modal) */
+        /* Bỏ class .success-modal-content và dùng class .modal-content của Bootstrap */
+        #successModal .modal-dialog {
+            max-width: 350px; /* Kích thước nhỏ hơn cho modal thành công */
+        }
+        #successModal .modal-body { /* Thêm padding và text-align cho body của success modal */
+            padding: 25px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body class="font-sans">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logo.jpg" alt="Logo Phú Yên" height="40">
+      </a>
+      <strong>Du Lịch Phú Yên</strong>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="diadiem.html">Địa điểm</a></li>
+          <li class="nav-item"><a class="nav-link" href="amthuc.html">Ẩm thực</a></li>
+          <li class="nav-item"><a class="nav-link active" href="lichtrinh.html">Lịch trình</a></li>
+          <li class="nav-item"><a class="nav-link" href="congdong.html">Cộng đồng</a></li>
+          <li class="nav-item"><a class="nav-link" href="lienhe.html">Liên hệ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <header class="text-white text-center py-16 page-header-tours">
+        <h1 class="text-5xl font-bold mb-3">Khám Phá Phú Yên - Vùng Đất Hoa Vàng Cỏ Xanh</h1>
+        <p class="mt-2 text-xl max-w-2xl mx-auto">Trải nghiệm những hành trình tuyệt vời với các tour du lịch chuyên nghiệp, khám phá vẻ đẹp tiềm ẩn và văn hóa đặc sắc.</p>
+    </header>
+
+    <div class="container mx-auto py-12 px-4">
+        <div id="tourListContainer">
+        </div>
+    </div>
+
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> 
+            <div class="modal-content"> 
+                <div class="modal-header">
+                    <h5 class="modal-title text-xl font-bold text-gray-800" id="bookingModalLabel">Đặt Tour Ngay</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="bookingModalTourName" class="mb-3 font-semibold text-md text-gray-700"></p>
+                    <form id="bookingForm">
+                        <div class="mb-3">
+                            <label for="bookingName" class="form-label">Họ và Tên</label>
+                            <input type="text" id="bookingName" class="form-control form-control-sm" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bookingEmail" class="form-label">Địa chỉ Email</label>
+                            <input type="email" id="bookingEmail" class="form-control form-control-sm" required>
+                            <p id="emailError" class="text-danger text-xs italic mt-1" style="display:none;">Email không hợp lệ.</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bookingPhone" class="form-label">Số Điện Thoại</label>
+                            <input type="tel" id="bookingPhone" class="form-control form-control-sm" required>
+                            <p id="phoneError" class="text-danger text-xs italic mt-1" style="display:none;">Số điện thoại không hợp lệ.</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bookingDate" class="form-label">Ngày Khởi Hành</label>
+                            <input type="date" id="bookingDate" class="form-control form-control-sm" required>
+                            <p id="dateError" class="text-danger text-xs italic mt-1" style="display:none;">Ngày khởi hành không hợp lệ.</p>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col">
+                                <label for="bookingAdults" class="form-label">Số Người Lớn (&gt;10t)</label>
+                                <input type="number" id="bookingAdults" min="1" class="form-control form-control-sm" required>
+                            </div>
+                            <div class="col">
+                                <label for="bookingChildren" class="form-label">Số Trẻ Em (6-9t)</label>
+                                <input type="number" id="bookingChildren" min="0" class="form-control form-control-sm" value="0" required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="bookingRequests" class="form-label">Yêu Cầu Khác</label>
+                            <textarea id="bookingRequests" class="form-control form-control-sm" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary btn-sm me-2" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger btn-sm" style="background-color: var(--accent-color);">Đặt Tour</button>
+                        </div>
+                        <p class="text-center text-muted small mt-3">Tư vấn miễn phí: 0123 456 789</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tourDetailModal" tabindex="-1" aria-labelledby="detailModalTitleLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content tour-detail-modal-content-custom">
+                <div class="modal-header-custom">
+                    <h3 id="detailModalTitle" class="modal-title-custom">Chi Tiết Tour</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body-custom">
+                    <div id="detailModalCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="detailModalCarouselInner">
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#detailModalCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#detailModalCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    <div id="detailModalInfo">
+                    </div>
+                </div>
+                <div class="modal-footer-custom">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content"> 
+                <div class="modal-body text-center p-4">
+                    <i class="fas fa-check-circle text-success fa-3x mb-3"></i> 
+                    <h3 class="text-xl font-bold mb-2 text-gray-800" id="successModalLabel">Đặt Tour Thành Công!</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Cảm ơn bạn đã đặt tour. Chúng tôi sẽ liên hệ với bạn sớm nhất để xác nhận.</p>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script>
+        const tours = [
+            {
+                name: "Tour Phú Yên 1 Ngày: Hoa Vàng Cỏ Xanh",
+                duration: "1 ngày",
+                price: "1,750,000 VNĐ",
+                description: "Khám phá những điểm đến nổi bật của Phú Yên trong một ngày, từ kỳ quan thiên nhiên đến phim trường nổi tiếng.",
+                highlights: ["Ghềnh Đá Đĩa - kỳ quan đá bazan độc đáo", "Bãi Xép - phim trường 'Tôi Thấy Hoa Vàng Trên Cỏ Xanh'", "Tháp Nhạn - di tích Chăm Pa cổ"],
+                itinerary: [
+                    "07:30: Đón khách tại Tuy Hòa.",
+                    "08:00: Tham quan Tháp Nhạn.",
+                    "09:30: Khám phá Ghềnh Đá Đĩa.",
+                    "12:00: Dùng buffet hải sản tại Đầm Ô Loan.",
+                    "14:00: Check-in Bãi Xép - Ghềnh Ông.",
+                    "16:00: Kết thúc, trả khách."
+                ],
+                services: ["Xe du lịch đời mới", "Hướng dẫn viên chuyên nghiệp", "Bữa trưa hải sản", "Vé tham quan", "Nước uống"],
+                notes: ["Mang giày thoải mái", "Chuẩn bị mũ","kem chống nắng"],
+                images: ["img/1-1.jpg", "img/1-2.jpg", "img/1-3.jpg"]
+            },
+            {
+                name: "Tour Phú Yên 3 Ngày 2 Đêm: Khám Phá Đất Phú",
+                duration: "3 ngày 2 đêm",
+                price: "4,500,000 VNĐ",
+                description: "Hành trình trọn vẹn khám phá vẻ đẹp hoang sơ, văn hóa đặc sắc và ẩm thực độc đáo của Phú Yên.",
+                highlights: ["Mũi Điện - điểm cực Đông đón bình minh", "Nhà Thờ Mằng Lăng - sách chữ Quốc ngữ đầu tiên", "Ẩm thực: Sò huyết, mắt cá ngừ"],
+                itinerary: [
+                    "Ngày 1: Đón khách tại sân bay, tham quan Mũi Điện, Vũng Rô. Nghỉ đêm Tuy Hòa.",
+                    "Ngày 2: Ghềnh Đá Đĩa, Nhà Thờ Mằng Lăng, Đầm Ô Loan. Dùng đặc sản mắt cá ngừ.",
+                    "Ngày 3: Bãi Xép, mua sắm đặc sản (bò một nắng). Tiễn khách."
+                ],
+                services: ["Khách sạn 3 sao", "Xe du lịch", "Hướng dẫn viên", "3 bữa chính, 2 bữa sáng", "Vé tham quan"],
+                notes: ["Đặt trước ít nhất 7 ngày","Chuẩn bị mũ", "Mang theo giấy tờ tùy thân"],
+                images: ["img/2-1.jpg", "img/2-2.jpg", "img/2-3.jpg"]
+            },
+            {
+                name: "Tour Phú Yên - Quy Nhơn 5 Ngày 4 Đêm",
+                duration: "5 ngày 4 đêm",
+                price: "6,990,000 VNĐ",
+                description: "Kết hợp khám phá Phú Yên và Quy Nhơn với các điểm đến tuyệt đẹp và trải nghiệm văn hóa phong phú.",
+                highlights: ["Kỳ Co - thiên đường biển Quy Nhơn", "Mũi Điện - điểm cực Đông", "Ghềnh Đá Đĩa và Eo Gió"],
+                itinerary: [
+                    "Ngày 1: Đón khách tại Quy Nhơn, tham quan Cầu Thị Nại, Đồi Cát Phương Mai.",
+                    "Ngày 2: Kỳ Co, Eo Gió, Ghềnh Ráng Tiên Sa, mộ Hàn Mặc Tử.",
+                    "Ngày 3: Di chuyển Phú Yên, tham quan Mũi Điện, Vũng Rô.",
+                    "Ngày 4: Ghềnh Đá Đĩa, Nhà Thờ Mằng Lăng, Bãi Xép.",
+                    "Ngày 5: Tháp Nhạn, mua sắm đặc sản, tiễn khách."
+                ],
+                services: ["Khách sạn 4 sao", "Xe du lịch", "Hướng dẫn viên", "5 bữa chính, 4 bữa sáng", "Vé tham quan"],
+                notes: ["Phù hợp gia đình, nhóm bạn", "Liên hệ để tùy chỉnh lịch trình"],
+                images: ["img/3-1.jpg", "img/3-2.jpg", "img/3-3.jpg"]
+            },
+            {
+                name: "Tour Phú Yên 2 Ngày 1 Đêm: Biển Xanh Vẫy Gọi",
+                duration: "2 ngày 1 đêm",
+                price: "2,990,000 VNĐ",
+                description: "Trải nghiệm biển xanh và văn hóa Phú Yên trong hành trình ngắn ngày, lý tưởng cho cuối tuần.",
+                highlights: ["Bãi Môn - bãi biển hoang sơ", "Hải Đăng Đại Lãnh", "Vịnh Vũng Rô thơ mộng"],
+                itinerary: [
+                    "Ngày 1: Đón khách tại Tuy Hòa, tham quan vui chơi ở các địa điểm Bãi Môn, Hải Đăng Đại Lãnh, Vịnh Vũng Rô. Nghỉ đêm tại Tuy Hòa.",
+                    "Ngày 2: Tham quan Đầm Ô Loan, thưởng thức sò huyết. Kết thúc, trả khách."
+                ],
+                services: ["Khách sạn 3 sao", "Xe du lịch", "Hướng dẫn viên", "2 bữa chính, 1 bữa sáng", "Vé tham quan"],
+                notes: ["Mang đồ bơi", "Chuẩn bị giày chống trượt","Đồ chống nắng"],
+                images: ["img/4-1.jpg", "img/4-2.jpg", "img/4-3.jpg"]
+            },
+            {
+                name: "Tour Phú Yên 1 Ngày: Ẩm Thực và Văn Hóa",
+                duration: "1 ngày",
+                price: "1,950,000 VNĐ",
+                description: "Khám phá văn hóa và ẩm thực đặc sắc của Phú Yên qua các món ăn địa phương và di tích lịch sử.",
+                highlights: ["Nhà Thờ Mằng Lăng", "Chợ Tuy Hòa", "Ẩm thực: Bánh bèo chén, chả dông"],
+                itinerary: [
+                    "08:00: Đón khách tại Tuy Hòa.",
+                    "08:30: Tham quan Nhà Thờ Mằng Lăng.",
+                    "10:00: Khám phá Chợ Tuy Hòa, thưởng thức bánh bèo chén.",
+                    "12:00: Dùng bữa trưa với chả dông và hải sản.",
+                    "14:00: Tham quan Bảo Tàng Phú Yên.",
+                    "16:00: Kết thúc, trả khách."
+                ],
+                services: ["Xe du lịch", "Hướng dẫn viên", "Bữa trưa đặc sản", "Vé tham quan", "Nước uống"],
+                notes: ["Thích hợp cho người yêu ẩm thực", "Mang theo túi để mua đặc sản"],
+                images: ["img/2-2.jpg", "img/5-2.jpg", "img/2-3.jpg" ]
+            },
+            {
+                name: "Tour Phú Yên 4 Ngày 3 Đêm: Hành Trình Xuyên Đất Phú",
+                duration: "4 ngày 3 đêm",
+                price: "5,790,000 VNĐ",
+                description: "Khám phá toàn diện Phú Yên từ biển đảo, di tích đến làng nghề truyền thống.",
+                highlights: ["Hòn Yến - rạn san hô tự nhiên", "Làng nghề nước mắm Gành Đỏ", "Ghềnh Đá Đĩa"],
+                itinerary: [
+                    "Ngày 1: Đón khách, tham quan Tháp Nhạn, nghỉ đêm Tuy Hòa.",
+                    "Ngày 2: Khám phá Hòn Yến, làng nghề nước mắm Gành Đỏ.",
+                    "Ngày 3: Ghềnh Đá Đĩa, Nhà Thờ Mằng Lăng, Đầm Ô Loan.",
+                    "Ngày 4: Bãi Xép, mua sắm đặc sản, tiễn khách."
+                ],
+                services: ["Khách sạn 3 sao", "Xe du lịch", "Hướng dẫn viên", "4 bữa chính, 3 bữa sáng", "Vé tham quan"],
+                notes: ["Mang giày thoải mái", "Đặt trước để đảm bảo chỗ"],
+                images: ["img/5-1.jpg", "img/6-2.jpg", "img/1-1.jpg" ]
+            },
+            {
+                name: "Tour Phú Yên 1 Ngày: Check-in Sống Ảo",
+                duration: "1 ngày",
+                price: "1,690,000 VNĐ",
+                description: "Hành trình dành cho giới trẻ, check-in tại các điểm đến 'triệu like' của Phú Yên.",
+                highlights: ["Bãi Xép - Ghềnh Ông", "Hòn Nưa", "Cầu Gỗ Ông Cọp"],
+                itinerary: [
+                    "07:30: Đón khách tại Tuy Hòa.",
+                    "08:00: Check-in Bãi Xép - Ghềnh Ông.",
+                    "10:00: Tham quan Hòn Nưa, chụp ảnh với biển xanh.",
+                    "12:00: Dùng bữa trưa hải sản.",
+                    "14:00: Check-in Cầu Gỗ Ông Cọp - cầu gỗ dài nhất Phú Yên.",
+                    "16:00: Kết thúc, trả khách."
+                ],
+                services: ["Xe du lịch", "Hướng dẫn viên", "Bữa trưa", "Vé tham quan", "Nước uống"],
+                notes: ["Mang theo máy ảnh", "Chuẩn bị trang phục đẹp"],
+                images: ["img/1-2.jpg", "img/7-1.jpg", "img/7-2.jpg" ] 
+            },
+            {
+                name: "Tour Phú Yên - Đảo Điệp Sơn 3 Ngày 2 Đêm",
+                duration: "3 ngày 2 đêm",
+                price: "4,890,000 VNĐ",
+                description: "Kết hợp khám phá Phú Yên và Đảo Điệp Sơn với con đường giữa biển độc đáo.",
+                highlights: ["Đảo Điệp Sơn - con đường giữa biển", "Mũi Điện", "Bãi Xép"],
+                itinerary: [
+                    "Ngày 1: Đón khách, tham quan Mũi Điện, nghỉ đêm Tuy Hòa.",
+                    "Ngày 2: Di chuyển đến Đảo Điệp Sơn, đi bộ trên con đường giữa biển, khám phá đảo.",
+                    "Ngày 3: Tham quan Bãi Xép, mua sắm đặc sản, tiễn khách."
+                ],
+                services: ["Khách sạn 3 sao", "Xe du lịch, tàu ra đảo", "Hướng dẫn viên", "3 bữa chính, 2 bữa sáng", "Vé tham quan"],
+                notes: ["Mang đồ bơi, kem chống nắng", "Kiểm tra thời tiết trước khi đi"],
+                images: [ "img/8-1.jpg", "img/3-2.jpg", "img/1-2.jpg" ]
+            },
+            {
+                name: "Tour Phú Yên 3 Ngày 2 Đêm: Hành Trình Di Sản và Biển Đảo",
+                duration: "3 ngày 2 đêm",
+                price: "4,690,000 VNĐ",
+                description: "Khám phá di sản văn hóa và các bãi biển tuyệt đẹp của Phú Yên, kết hợp trải nghiệm ẩm thực địa phương.",
+                highlights: ["Thành Hồ Hòa - di tích lịch sử", "Bãi Môn - biển xanh cát trắng", "Ẩm thực: Gỏi cá mai, sò huyết"],
+                itinerary: [
+                    "Ngày 1: Đón khách tại Tuy Hòa, tham quan Thành Hồ Hòa, nghỉ đêm tại Tuy Hòa.",
+                    "Ngày 2: Khám phá Bãi Môn, Hải Đăng Đại Lãnh, thưởng thức gỏi cá mai.",
+                    "Ngày 3: Tham quan Đầm Ô Loan, dùng bữa với sò huyết, mua sắm đặc sản, tiễn khách."
+                ],
+                services: ["Khách sạn 3 sao", "Xe du lịch", "Hướng dẫn viên", "3 bữa chính, 2 bữa sáng", "Vé tham quan"],
+                notes: ["Mang giày thoải mái", "Chuẩn bị đồ bơi và kem chống nắng"],
+                images: [ "img/9-1.jpg", "img/3-3.jpg", "img/4-1.jpg" ]
+            }
+        ];
+
+        const tourDetailModalElement = document.getElementById('tourDetailModal');
+        const tourDetailModalInstance = new bootstrap.Modal(tourDetailModalElement);
+
+        const bookingModalElement = document.getElementById('bookingModal');
+        const bookingModalInstance = new bootstrap.Modal(bookingModalElement);
+        
+        const successModalElement = document.getElementById('successModal');
+        const successModalInstance = new bootstrap.Modal(successModalElement);
+
+
+        function displayTours() {
+            const tourListContainer = document.getElementById('tourListContainer');
+            tourListContainer.innerHTML = '';
+            tours.forEach((tour, index) => {
+                const tourCard = document.createElement('div');
+                tourCard.className = 'h-tour-card';
+                const representativeImage = tour.images && tour.images.length > 0 ? tour.images[0] : 'img/default_tour_image.jpg';
+
+                tourCard.innerHTML = `
+                    <img src="${representativeImage}" alt="${tour.name}" class="h-tour-card-image">
+                    <div class="h-tour-card-content">
+                        <h3 class="h-tour-card-title">${tour.name}</h3>
+                        <p class="h-tour-card-info"><i class="fas fa-clock"></i>Thời gian: ${tour.duration}</p>
+                        <p class="h-tour-card-info h-tour-card-price"><i class="fas fa-dollar-sign"></i>Giá: <strong>${tour.price}</strong></p>
+                        <p class="h-tour-card-description">${tour.description.substring(0, 150)}${tour.description.length > 150 ? '...' : ''}</p>
+                        <div class="h-tour-card-actions">
+                            <button class="btn-custom btn-details" onclick="openTourDetailModal(${index})">
+                                <i class="fas fa-info-circle me-1"></i>Xem chi tiết tour
+                            </button>
+                            <button class="btn-custom btn-book" onclick="openBookingModal('${tour.name}')">
+                                <i class="fas fa-calendar-check me-1"></i>Đặt Tour Ngay
+                            </button>
+                        </div>
+                    </div>
+                `;
+                tourListContainer.appendChild(tourCard);
+            });
+        }
+
+        function openTourDetailModal(tourIndex) {
+            const tour = tours[tourIndex];
+            if (!tour) return;
+
+            document.getElementById('detailModalTitle').textContent = tour.name;
+            
+            const carouselInner = document.getElementById('detailModalCarouselInner');
+            carouselInner.innerHTML = ''; 
+            const detailCarouselElement = document.getElementById('detailModalCarousel');
+
+            if (tour.images && tour.images.length > 0) {
+                tour.images.forEach((imgSrc, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                    itemDiv.innerHTML = `<img src="${imgSrc}" class="d-block w-100" alt="Ảnh tour ${index + 1}">`;
+                    carouselInner.appendChild(itemDiv);
+                });
+                detailCarouselElement.style.display = 'block';
+                const carouselInstance = bootstrap.Carousel.getInstance(detailCarouselElement) || new bootstrap.Carousel(detailCarouselElement);
+                 if(carouselInstance && typeof carouselInstance.to === 'function') {
+                    carouselInstance.to(0); 
+                } else if (!carouselInstance) { 
+                     new bootstrap.Carousel(detailCarouselElement);
+                }
+            } else {
+                 detailCarouselElement.style.display = 'none';
+            }
+
+            let detailHtml = '';
+            if (tour.description) {
+                detailHtml += `<p class="mb-3 text-gray-700">${tour.description}</p><hr class="my-3">`;
+            }
+            if (tour.highlights && tour.highlights.length > 0) {
+                detailHtml += `<h4 class="detail-section-title">Điểm nổi bật</h4><ul>${tour.highlights.map(item => `<li>${item}</li>`).join('')}</ul>`;
+            }
+            if (tour.itinerary && tour.itinerary.length > 0) {
+                detailHtml += `<h4 class="detail-section-title">Lịch trình gợi ý</h4><ul>${tour.itinerary.map(item => `<li>${item}</li>`).join('')}</ul>`;
+            }
+            if (tour.services && tour.services.length > 0) {
+                detailHtml += `<h4 class="detail-section-title">Dịch vụ bao gồm</h4><ul>${tour.services.map(item => `<li>${item}</li>`).join('')}</ul>`;
+            }
+            if (tour.notes && tour.notes.length > 0) {
+                detailHtml += `<h4 class="detail-section-title">Lưu ý</h4><ul>${tour.notes.map(item => `<li>${item}</li>`).join('')}</ul>`;
+            }
+            document.getElementById('detailModalInfo').innerHTML = detailHtml;
+            
+            tourDetailModalInstance.show();
+        }
+        
+        function openBookingModal(tourName) {
+            document.getElementById('bookingModalTourName').textContent = `Tour: ${tourName}`;
+            bookingModalInstance.show(); 
+            document.getElementById('bookingForm').reset();
+            document.getElementById('emailError').style.display = 'none';
+            document.getElementById('phoneError').style.display = 'none';
+            document.getElementById('dateError').style.display = 'none';
+        }
+
+        function openSuccessModal() {
+            successModalInstance.show(); 
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('bookingName').value.trim();
+            const email = document.getElementById('bookingEmail').value.trim();
+            const phone = document.getElementById('bookingPhone').value.trim();
+            const date = document.getElementById('bookingDate').value;
+            const adults = document.getElementById('bookingAdults').value;
+
+            const emailError = document.getElementById('emailError');
+            const phoneError = document.getElementById('phoneError');
+            const dateError = document.getElementById('dateError');
+            let isValid = true;
+
+            emailError.style.display = 'none';
+            phoneError.style.display = 'none';
+            dateError.style.display = 'none';
+
+            if (!name || !email || !phone || !date || !adults) {
+                alert('Vui lòng điền đầy đủ thông tin các trường bắt buộc.');
+                isValid = false;
+                return;
+            }
+            if (!email.endsWith('@gmail.com')) {
+                emailError.textContent = 'Email phải có đuôi @gmail.com';
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+            if (!/^\d{10}$/.test(phone)) {
+                phoneError.textContent = 'Số điện thoại phải đủ 10 số.';
+                phoneError.style.display = 'block';
+                isValid = false;
+            }
+            if (date) {
+                const selectedDate = new Date(date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                selectedDate.setHours(0,0,0,0);
+                if (selectedDate <= today) {
+                    dateError.textContent = 'Ngày khởi hành phải lớn hơn ngày hiện tại.';
+                    dateError.style.display = 'block';
+                    isValid = false;
+                }
+            }
+            if (isValid) {
+                bookingModalInstance.hide(); 
+                openSuccessModal();
+                document.getElementById('bookingForm').reset();
+            }
+        });
+        
+        displayTours();
+    </script>
+</body>
+</html>
