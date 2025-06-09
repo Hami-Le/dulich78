@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cộng Đồng Du Lịch Phú</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+<html lang="vi"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cộng Đồng Du Lịch Phú Yên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
       body {
         background-image: url("img/tt9.jpg");
@@ -179,31 +168,18 @@
         transform: scale(1.1);
       }
     </style>
-  </head>
+  <style type="text/css" id="operaUserStyle"></style></head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm"
-    >
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
       <div class="container">
         <a class="navbar-brand" href="index.html">
-          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40" />
+          <img src="img/logo.jpg" alt="Logo Phú Yên" height="40">
         </a>
         <strong>Du Lịch Phú Yên</strong>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div
-          class="collapse navbar-collapse justify-content-center"
-          id="navbarNav"
-        >
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
           <ul class="navbar-nav gap-3">
             <li class="nav-item">
               <a class="nav-link" href="index.html">Trang chủ</a>
@@ -238,19 +214,19 @@
         <form id="createPostForm">
           <div class="mb-3">
             <label for="postTitle" class="form-label">Tiêu đề bài viết <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="postTitle" required />
+            <input type="text" class="form-control" id="postTitle" required="">
           </div>
           <div class="mb-3">
             <label for="postAuthor" class="form-label">Tên của bạn <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="postAuthor" value="Khách" required />
+            <input type="text" class="form-control" id="postAuthor" value="Khách" required="">
           </div>
           <div class="mb-3">
             <label for="postContent" class="form-label">Nội dung cảm nhận <span class="text-danger">*</span></label>
-            <textarea class="form-control" id="postContent" rows="6" required></textarea>
+            <textarea class="form-control" id="postContent" rows="6" required=""></textarea>
           </div>
           <div class="mb-3">
             <label for="postImages" class="form-label">Chọn ảnh minh họa (tùy chọn, có thể chọn nhiều ảnh)</label>
-            <input class="form-control" type="file" id="postImages" accept="image/*" multiple />
+            <input class="form-control" type="file" id="postImages" accept="image/*" multiple="">
             <div id="imagePreviewContainer" class="image-preview-container">
             </div>
             <div class="form-text">Chọn ảnh có dung lượng nhỏ để tải nhanh hơn.</div>
@@ -269,8 +245,75 @@
         <h2 class="text-center mb-4" style="font-family: 'Noto Sans', sans-serif; color: var(--text-color);">
             <i class="fas fa-comments me-2"></i>Bài Viết Từ Cộng Đồng
         </h2>
-        <div id="postsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        </div>
+        <div id="postsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"><div class="col">
+            <div class="card h-100 post-card">
+              <img src="img/matcangu.jpeg" class="card-img-top" alt="Ẩm Thực Phú Yên - Mắt Cá Ngừ Đại Dương Không Thể Bỏ Qua!">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Ẩm Thực Phú Yên - Mắt Cá Ngừ Đại Dương Không Thể Bỏ Qua!</h5>
+                <p class="card-text post-meta">
+                    <i class="fas fa-user me-1"></i>Lê Cường - <i class="fas fa-calendar-alt me-1"></i>10/05/2025
+                </p>
+                <p class="card-text post-content-preview">Đến Phú Yên nhất định phải thử món mắt cá ngừ đại dương tiềm thuốc bắc.
+Nghe có vẻ lạ nhưng hương vị...</p>
+                <div class="mt-auto card-actions">
+                    <div>
+                        <a href="#" class="btn btn-read-more" onclick="viewPostDetails(event, 1747762215191)">Đọc thêm <i class="fas fa-arrow-right ms-1"></i></a>
+                        <button class="btn btn-delete-post" onclick="confirmDeletePost(1747762215191)">
+                            <i class="fas fa-trash-alt me-1"></i>Xóa
+                        </button>
+                    </div>
+                    <span class="like-button " onclick="toggleLike(1747762215191)">
+                        <i class="fas fa-heart me-1"></i><span id="like-count-1747762215191">30</span>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div><div class="col">
+            <div class="card h-100 post-card">
+              <img src="img/muidien1.jpg" class="card-img-top" alt="Bình Minh Tuyệt Đẹp ở Mũi Điện">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Bình Minh Tuyệt Đẹp ở Mũi Điện</h5>
+                <p class="card-text post-meta">
+                    <i class="fas fa-user me-1"></i>Trần Bình - <i class="fas fa-calendar-alt me-1"></i>12/05/2025
+                </p>
+                <p class="card-text post-content-preview">Dậy sớm để đón bình minh đầu tiên trên đất liền tại Mũi Điện là một điều vô cùng xứng đáng.
+Khung cả...</p>
+                <div class="mt-auto card-actions">
+                    <div>
+                        <a href="#" class="btn btn-read-more" onclick="viewPostDetails(event, 1747762215190)">Đọc thêm <i class="fas fa-arrow-right ms-1"></i></a>
+                        <button class="btn btn-delete-post" onclick="confirmDeletePost(1747762215190)">
+                            <i class="fas fa-trash-alt me-1"></i>Xóa
+                        </button>
+                    </div>
+                    <span class="like-button liked" onclick="toggleLike(1747762215190)">
+                        <i class="fas fa-heart me-1"></i><span id="like-count-1747762215190">42</span>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div><div class="col">
+            <div class="card h-100 post-card">
+              <img src="img/ganhdadia1.jpg" class="card-img-top" alt="Kỳ Vĩ Gành Đá Đĩa Dưới Nắng Vàng">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Kỳ Vĩ Gành Đá Đĩa Dưới Nắng Vàng</h5>
+                <p class="card-text post-meta">
+                    <i class="fas fa-user me-1"></i>Nguyễn An - <i class="fas fa-calendar-alt me-1"></i>15/05/2025
+                </p>
+                <p class="card-text post-content-preview">Chuyến đi Phú Yên của mình không thể trọn vẹn nếu thiếu Gành Đá Đĩa. Những khối đá bazan xếp chồng l...</p>
+                <div class="mt-auto card-actions">
+                    <div>
+                        <a href="#" class="btn btn-read-more" onclick="viewPostDetails(event, 1747762215189)">Đọc thêm <i class="fas fa-arrow-right ms-1"></i></a>
+                        <button class="btn btn-delete-post" onclick="confirmDeletePost(1747762215189)">
+                            <i class="fas fa-trash-alt me-1"></i>Xóa
+                        </button>
+                    </div>
+                    <span class="like-button " onclick="toggleLike(1747762215189)">
+                        <i class="fas fa-heart me-1"></i><span id="like-count-1747762215189">25</span>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div></div>
         <p id="noPostsMessage" class="text-center text-muted mt-4" style="display:none;">
             Chưa có bài viết nào. Hãy là người đầu tiên chia sẻ cảm nhận của bạn!
         </p>
@@ -312,6 +355,12 @@
         </div>
       </div>
     </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+      <div class="container">
+        <p class="mb-0">© <span id="currentYear">2025</span> Du Lịch Phú Yên. Bảo lưu mọi quyền.</p>
+      </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -593,5 +642,5 @@
 
       window.addEventListener("load", loadPosts);
     </script>
-  </body>
-</html>
+  
+</body></html>
